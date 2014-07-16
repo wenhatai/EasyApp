@@ -19,6 +19,7 @@
     <orderEntry type="library" name="retrofit-1.6.1" level="project" />
     <orderEntry type="library" name="universal-image-loader-1.9.2" level="project" />
     <orderEntry type="library" name="gson-2.2.4" level="project" />
+    <orderEntry type="library" name="recyclerview-v7" level="project" />
   </component>
 </module>
 
