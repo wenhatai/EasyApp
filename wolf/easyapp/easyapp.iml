@@ -15,6 +15,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="okhttp-2.0.0" level="project" />
+    <orderEntry type="library" name="retrofit-1.6.1" level="project" />
+    <orderEntry type="library" name="universal-image-loader-1.9.2" level="project" />
+    <orderEntry type="library" name="gson-2.2.4" level="project" />
   </component>
 </module>
 
