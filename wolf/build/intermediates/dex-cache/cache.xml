@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pre-dex-items>
+
+    <item
+        dex="E:\workspace\EasyApp\wolf\app\build\intermediates\pre-dexed\debug\classes-438a6e16c437c0b7e051f857a179c61768b80579.jar"
+        jar="E:\workspace\EasyApp\wolf\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\19.1.0\classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28"/>
+    <item
+        dex="E:\workspace\EasyApp\wolf\app\build\intermediates\pre-dexed\debug\universal-image-loader-1.9.2-815c7757849ab3d804efc249df214e60ec78ff11.jar"
+        jar="C:\Users\parrzhang\.gradle\caches\modules-2\files-2.1\com.nostra13.universalimageloader\universal-image-loader\1.9.2\9e025bc5b84968e7d6ac765e660a70b3e5a87432\universal-image-loader-1.9.2.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="9e025bc5b84968e7d6ac765e660a70b3e5a87432"/>
+    <item
+        dex="E:\workspace\EasyApp\wolf\app\build\intermediates\pre-dexed\debug\retrofit-1.6.1-95881493ab156386510ab4a532509512e63c2b25.jar"
+        jar="C:\Users\parrzhang\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit\retrofit\1.6.1\efb0a36546aa8857ab8df358b106c1817e03cbee\retrofit-1.6.1.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="efb0a36546aa8857ab8df358b106c1817e03cbee"/>
+    <item
+        dex="E:\workspace\EasyApp\wolf\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.0-rc1-837382c8f6dfea7100f8eba2c7a1aaa7a750bcc1.jar"
+        jar="D:\Program Files\Android-Studio\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.0-rc1\support-annotations-21.0.0-rc1.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="57c343f05b73b923bf2502b05851dbfe12193dcb"/>
+    <item
+        dex="E:\workspace\EasyApp\wolf\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.0-rc1-61a6d39ca14647d94845caae413b39ca12ef631c.jar"
+        jar="E:\workspace\EasyApp\wolf\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.0-rc1\libs\internal_impl-21.0.0-rc1.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="d1a625e8a94bf7c73e0f9d30ad1b483ff6ea64e9"/>
+    <item
+        dex="E:\workspace\EasyApp\wolf\app\build\intermediates\pre-dexed\debug\gson-2.2.4-e970a5a5dd81e64f81d1ac0e3ca4290009c58ef2.jar"
+        jar="C:\Users\parrzhang\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.2.4\a60a5e993c98c864010053cb901b7eab25306568\gson-2.2.4.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="a60a5e993c98c864010053cb901b7eab25306568"/>
+    <item
+        dex="E:\workspace\EasyApp\wolf\app\build\intermediates\pre-dexed\debug\classes-f0599654cf41cd2949b958d430e27f0ae1600c3c.jar"
+        jar="E:\workspace\EasyApp\wolf\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\21.0.0-rc1\classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="14d500eeb7128db6c0f9b55f166c42eacf00f3b6"/>
+    <item
+        dex="E:\workspace\EasyApp\wolf\app\build\intermediates\pre-dexed\debug\classes-249fc5e4d96a8b5a9d5380f9ae5850e3d537c970.jar"
+        jar="E:\workspace\EasyApp\wolf\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.0-rc1\classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="7ae84435ebc95f67a3f5e511025e96caa8688da2"/>
+
+</pre-dex-items>
