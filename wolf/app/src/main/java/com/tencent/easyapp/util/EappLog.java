@@ -1,4 +1,4 @@
-package com.tencent.easyapp.error;
+package com.tencent.easyapp.util;
 
 import android.text.TextUtils;
 import android.util.Log;

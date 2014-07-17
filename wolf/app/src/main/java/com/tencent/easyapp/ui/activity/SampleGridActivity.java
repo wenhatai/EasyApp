@@ -3,14 +3,10 @@ package com.tencent.easyapp.ui.activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.GridView;
 
-import com.google.gson.Gson;
-import com.tencent.easyapp.R;
 import com.tencent.easyapp.rest.api.SampleApiClient;
 import com.tencent.easyapp.rest.modle.SampleJustinTvStreamData;
-import com.tencent.easyapp.ui.adapter.SampleBaseGridAdapter;
 import com.tencent.easyapp.ui.adapter.SampleGridAdapter;
 import com.tencent.easyapp.ui.common.BaseActivity;
 import retrofit.Callback;
@@ -44,7 +40,6 @@ public class SampleGridActivity extends BaseActivity{
         SampleApiClient.getEappApiClient().getStreams(10,0,new Callback<List<SampleJustinTvStreamData>>() {
             @Override
             public void success(List<SampleJustinTvStreamData> sampleJustinTvStreamDatas, Response response) {
-                Log.e("Tag",new Gson().toJson(sampleJustinTvStreamDatas));
                 mSampleGridAdapter.setContent(sampleJustinTvStreamDatas);
             }
 

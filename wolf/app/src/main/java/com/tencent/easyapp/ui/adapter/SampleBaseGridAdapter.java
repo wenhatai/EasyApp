@@ -12,7 +12,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tencent.easyapp.R;
 import com.tencent.easyapp.rest.modle.SampleJustinTvStreamData;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

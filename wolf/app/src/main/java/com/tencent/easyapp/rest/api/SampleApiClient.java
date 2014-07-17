@@ -1,5 +1,6 @@
 package com.tencent.easyapp.rest.api;
 
+import com.tencent.easyapp.rest.error.EappErrorHandler;
 import com.tencent.easyapp.rest.modle.SampleJustinTvStreamData;
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -24,6 +25,7 @@ public class SampleApiClient {
         if(sEappApiService == null){
             RestAdapter restAdapter = new RestAdapter.Builder()
                     .setEndpoint("http://api.justin.tv/api")
+                    .setErrorHandler(new EappErrorHandler())
                     .build();
             sEappApiService = restAdapter.create(EappApiService.class);
         }

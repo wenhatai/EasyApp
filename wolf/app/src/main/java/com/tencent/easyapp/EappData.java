@@ -5,6 +5,7 @@ import android.content.res.Resources;
 
 /**
  * Created by parrzhang on 2014/7/16.
+ * 可以获取context，resource，color等
  */
 public class EappData {
     private static Context sContext;
