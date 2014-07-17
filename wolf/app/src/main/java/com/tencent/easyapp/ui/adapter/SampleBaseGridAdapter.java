@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tencent.easyapp.R;
 import com.tencent.easyapp.rest.modle.SampleJustinTvStreamData;
 
@@ -21,13 +19,11 @@ public class SampleBaseGridAdapter extends BaseAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
     private List<SampleJustinTvStreamData> mSampleJustinTvStreamDatas;
-    private DisplayImageOptions mOptions;
 
     public SampleBaseGridAdapter(Context context,List<SampleJustinTvStreamData> sampleJustinTvStreamDatas){
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
         this.mSampleJustinTvStreamDatas = sampleJustinTvStreamDatas;
-        this.mOptions = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).build();
     }
 
     @Override
@@ -57,8 +53,6 @@ public class SampleBaseGridAdapter extends BaseAdapter {
             viewHolder = (ViewHolder)convertView.getTag();
         }
         viewHolder.textView.setText(stream.getTitle());
-        ImageLoader.getInstance().displayImage(stream.getChannel().getImage_url_medium(),
-                viewHolder.imageView, mOptions);
         return convertView;
     }
 

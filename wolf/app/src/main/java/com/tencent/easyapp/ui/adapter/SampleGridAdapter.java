@@ -3,18 +3,16 @@ package com.tencent.easyapp.ui.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
+
+import com.koushikdutta.ion.Ion;
 import com.tencent.easyapp.R;
 import com.tencent.easyapp.rest.modle.SampleJustinTvStreamData;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,13 +25,11 @@ public class SampleGridAdapter extends RecyclerView.Adapter<SampleGridAdapter.Vi
     private Context mContext;
     private LayoutInflater mInflater;
     private List<SampleJustinTvStreamData> mSampleJustinTvStreamDatas;
-    private DisplayImageOptions mOptions;
 
     public SampleGridAdapter(Context context,List<SampleJustinTvStreamData> sampleJustinTvStreamDatas){
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
         this.mSampleJustinTvStreamDatas = sampleJustinTvStreamDatas;
-        this.mOptions = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).build();
     }
 
     public void setContent(List<SampleJustinTvStreamData> streamDatas){
@@ -55,7 +51,8 @@ public class SampleGridAdapter extends RecyclerView.Adapter<SampleGridAdapter.Vi
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         SampleJustinTvStreamData stream = mSampleJustinTvStreamDatas.get(position);
         viewHolder.textView.setText(stream.getTitle());
-        ImageLoader.getInstance().displayImage(testUrl, viewHolder.imageView, mOptions);
+        Ion.with(mContext).load(testUrl).intoImageView(viewHolder.imageView);
+        mContext.getExternalCacheDir();
     }
 
     @Override
