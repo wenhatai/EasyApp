@@ -9,3 +9,5 @@ Android开发
 2.图片加载使用ion实现
 3.测试model例子实现用Sample开头。比如SampleXXActivity，SampleXXAdapter.
 4.listview的实现将会直接通过recyclerview来实现。
+5.一些特殊需求，已经从ant工程改为使用gradle构建
+6.db模块使用greendao。
