@@ -8,7 +8,8 @@ import android.widget.GridView;
 import com.tencent.easyapp.rest.api.SampleApiClient;
 import com.tencent.easyapp.rest.modle.SampleJustinTvStreamData;
 import com.tencent.easyapp.ui.adapter.SampleGridAdapter;
-import com.tencent.easyapp.ui.common.BaseActivity;
+import com.tencent.easyapp.ui.common.SampleBaseActivity;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -18,7 +19,7 @@ import java.util.List;
 /**
  * Created by parrzhang on 2014/7/16.
  */
-public class SampleGridActivity extends BaseActivity{
+public class SampleGridActivity extends SampleBaseActivity {
     private SampleGridAdapter mSampleGridAdapter;
     private GridView mGridView;
     private RecyclerView mRecyclerView;

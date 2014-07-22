@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="layout_bottom" type="id"></item>
+
+    <item name="text_content" type="id"></item>
+    <item name="text_time" type="id"></item>
+    <item name="text_appname" type="id"></item>
+</resources>
