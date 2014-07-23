@@ -32,6 +32,7 @@ public class SampleLoginActivity extends SampleBaseActivity implements View.OnCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.sample_activity_login);
         findViewById(R.id.connect_qq).setOnClickListener(this);
         findViewById(R.id.connect_weibo).setOnClickListener(this);
@@ -63,7 +64,7 @@ public class SampleLoginActivity extends SampleBaseActivity implements View.OnCl
     }
 
     private void makeLogin(){
-        Intent intent = new Intent(this,SampleGridActivity.class);
+        Intent intent = new Intent(this,SampleMainActivity.class);
         startActivity(intent);
         finish();
     }

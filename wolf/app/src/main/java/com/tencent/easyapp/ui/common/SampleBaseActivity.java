@@ -2,8 +2,8 @@ package com.tencent.easyapp.ui.common;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.tencent.easyapp.DaoMaster;
 import com.tencent.easyapp.DaoSession;
 import com.tencent.easyapp.EappData;
@@ -13,7 +13,7 @@ import com.tencent.tauth.Tencent;
 /**
  * Created by parrzhang on 2014/7/16.
  */
-public class SampleBaseActivity extends FragmentActivity {
+public class SampleBaseActivity extends SherlockFragmentActivity {
     private static Tencent mTencent;
     private static DaoSession mDaoSession;
 
@@ -38,5 +38,8 @@ public class SampleBaseActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }

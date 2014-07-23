@@ -1,12 +1,13 @@
 package com.tencent.easyapp.ui.common;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+
+import com.actionbarsherlock.app.SherlockFragment;
 
 /**
  * Created by parrzhang on 2014/7/23.
  */
-public class SampleBaseFragment extends Fragment {
+public class SampleBaseFragment extends SherlockFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

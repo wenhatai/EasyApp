@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-          package="com.tencent.easyapp"
-        android:versionCode="1"
-        android:versionName="1.0">
+    package="com.tencent.easyapp"
+    android:versionCode="1"
+    android:versionName="1.0">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -12,20 +12,22 @@
 
 
     <uses-sdk tools:node="replace" />
-    <application android:icon="@drawable/ic_launcher"
-                 android:label="@string/app_name"
-                 android:name=".EappApplication"
-            >
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+        android:name=".EappApplication">
         <activity
-                android:name=".ui.activity.SampleLoginActivity"
-                android:label="@string/app_name" >
+            android:name=".ui.activity.SampleLoginActivity"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.SampleGridActivity"/>
+        <activity android:name=".ui.activity.SampleGridActivity" />
+        <activity android:name=".ui.activity.SampleMainActivity"/>
 
         <!--qq接入 start-->
         <activity
@@ -33,10 +35,12 @@
             android:noHistory="true"
             android:launchMode="singleTask">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="tencent1101817114"/>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent1101817114" />
             </intent-filter>
         </activity>
         <activity

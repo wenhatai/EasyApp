@@ -33,7 +33,7 @@ import retrofit.client.Response;
 /**
  * Created by parrzhang on 2014/7/23.
  */
-public class SampleGridFragment extends SampleBaseFragment implements SwipeRefreshLayout.OnRefreshListener{
+public class SampleGridFragment extends SampleBaseFragment implements SwipeRefreshLayout.OnRefreshListener {
     private SwipeRefreshLayout mSwipeLayout;
     private SampleBaseGridAdapter mSampleNoteAdapter;
     private ListView mListView;
@@ -43,54 +43,51 @@ public class SampleGridFragment extends SampleBaseFragment implements SwipeRefre
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.sample_fragment_grid,null);
+        View view = inflater.inflate(R.layout.sample_fragment_grid, null);
         init(view);
-        return  view;
+        return view;
     }
 
     @Override
     public void onRefresh() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mSwipeLayout.setRefreshing(false);
-            }
-        },3000);
+        loadData();
     }
 
-    public void init(View view){
-        mSwipeLayout = (SwipeRefreshLayout)view.findViewById(R.id.layout_swiprefresh);
+    public void init(View view) {
+        mSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.layout_swiprefresh);
         mSwipeLayout.setOnRefreshListener(this);
         mSwipeLayout.setColorScheme(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-        mListView = (ListView)view.findViewById(R.id.listview);
+        mListView = (ListView) view.findViewById(R.id.listview);
 
         DaoSession daoSession = getBaseActivity().getDaoSession();
         NoteDao noteDao = daoSession.getNoteDao();
         LazyList<Note> notes = noteDao.queryBuilder().limit(Limit).listLazyUncached();
-        mSampleNoteAdapter = new SampleBaseGridAdapter(getActivity(),notes);
+        mSampleNoteAdapter = new SampleBaseGridAdapter(getActivity(), notes);
         mListView.setAdapter(mSampleNoteAdapter);
     }
 
-    private void loadData(){
-        SampleApiClient.getEappApiClient().getStreams(Limit,page,new Callback<List<Note>>() {
+    private void loadData() {
+        SampleApiClient.getEappApiClient().getStreams(Limit, page, new Callback<List<Note>>() {
             @Override
             public void success(List<Note> notes, Response response) {
-                EappLog.e(new Gson().toJson(notes));
+                EappLog.w(new Gson().toJson(notes));
                 NoteDao noteDao = getBaseActivity().getDaoSession().getNoteDao();
                 ResourceDao resourceDao = getBaseActivity().getDaoSession().getResourceDao();
-                for(int i = 0;i<notes.size();i++){
-                    resourceDao.insertOrReplace(notes.get(i).getResource());
+                for (int i = 0; i < notes.size(); i++) {
+                    resourceDao.insertOrReplace(notes.get(i).getSimpleResource());
                     noteDao.insertOrReplace(notes.get(i));
                 }
                 mSampleNoteAdapter.setContent(notes);
+                mSwipeLayout.setRefreshing(false);
             }
 
             @Override
             public void failure(RetrofitError retrofitError) {
                 EappLog.e(retrofitError.getMessage());
+                mSwipeLayout.setRefreshing(false);
             }
         });
     }

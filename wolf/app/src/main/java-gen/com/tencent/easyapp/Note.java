@@ -122,6 +122,10 @@ public class Note {
         return resource;
     }
 
+    public Resource getSimpleResource(){
+        return  resource;
+    }
+
     public void setResource(Resource resource) {
         if (resource == null) {
             throw new DaoException("To-one property 'resource_id' has not-null constraint; cannot set to-one to null");
