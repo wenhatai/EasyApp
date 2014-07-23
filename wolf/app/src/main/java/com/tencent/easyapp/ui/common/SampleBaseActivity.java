@@ -1,9 +1,8 @@
 package com.tencent.easyapp.ui.common;
 
-import android.app.Activity;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 
 import com.tencent.easyapp.DaoMaster;
 import com.tencent.easyapp.DaoSession;
@@ -14,7 +13,7 @@ import com.tencent.tauth.Tencent;
 /**
  * Created by parrzhang on 2014/7/16.
  */
-public class SampleBaseActivity extends Activity {
+public class SampleBaseActivity extends FragmentActivity {
     private static Tencent mTencent;
     private static DaoSession mDaoSession;
 

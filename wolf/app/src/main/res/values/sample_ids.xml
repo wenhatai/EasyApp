@@ -2,9 +2,14 @@
 <resources>
     <item name="login" type="id"></item>
 
+    <item name="layout_swiprefresh" type="id"></item>
     <item name="layout_bottom" type="id"></item>
+    <item name="fragmentlayout" type="id"></item>
 
     <item name="text_content" type="id"></item>
     <item name="text_time" type="id"></item>
     <item name="text_appname" type="id"></item>
+
+    <item name="recyclerview" type="id"></item>
+    <item name="listview" type="id"></item>
 </resources>
