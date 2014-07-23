@@ -27,7 +27,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.SampleGridActivity" />
-        <activity android:name=".ui.activity.SampleMainActivity"/>
+        <activity android:name=".ui.activity.SampDrawLayoutActivity"/>
+        <activity android:name=".ui.activity.SampleTabActivity"/>
 
         <!--qq接入 start-->
         <activity

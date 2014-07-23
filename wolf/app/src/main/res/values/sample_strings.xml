@@ -16,4 +16,11 @@
     </string-array>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="tab1">tab1</string>
+    <string name="tab2">tab2</string>
+    <string name="tab3">tab3</string>
+    <string name="tab4">tab4</string>
+
+    <string name="menu_tab">tab形式</string>
+    <string name="menu_drawlayout">侧边栏形式</string>
 </resources>

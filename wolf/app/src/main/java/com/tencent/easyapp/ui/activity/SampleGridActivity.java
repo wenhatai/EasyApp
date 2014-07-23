@@ -2,6 +2,7 @@ package com.tencent.easyapp.ui.activity;
 
 import android.os.Bundle;
 
+import com.actionbarsherlock.view.MenuItem;
 import com.tencent.easyapp.R;
 import com.tencent.easyapp.ui.common.SampleBaseActivity;
 import com.tencent.easyapp.ui.fragment.SampleGridFragment;
@@ -20,4 +21,9 @@ public class SampleGridActivity extends SampleBaseActivity{
                 replace(R.id.fragmentlayout,sampleGridFragment).commit();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        return super.onOptionsItemSelected(item);
+    }
 }

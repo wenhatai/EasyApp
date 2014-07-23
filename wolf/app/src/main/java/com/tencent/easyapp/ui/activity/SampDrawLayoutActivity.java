@@ -1,5 +1,6 @@
 package com.tencent.easyapp.ui.activity;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,6 +25,7 @@ import com.tencent.easyapp.ui.adapter.SamplePlanetAdapter;
 import com.tencent.easyapp.ui.common.SampleBaseActivity;
 import com.tencent.easyapp.ui.common.SampleBaseFragment;
 import com.tencent.easyapp.ui.fragment.SampleGridFragment;
+import com.tencent.easyapp.ui.fragment.SamplePlanetFragment;
 
 import java.util.Random;
 
@@ -31,7 +33,7 @@ import java.util.Random;
 /**
  * Created by parrzhang on 2014/7/23.
  */
-public class SampleMainActivity extends SampleBaseActivity implements SamplePlanetAdapter.OnItemClickListener {
+public class SampDrawLayoutActivity extends SampleBaseActivity implements SamplePlanetAdapter.OnItemClickListener {
     private DrawerLayout mDrawerLayout;
     private RecyclerView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -89,6 +91,7 @@ public class SampleMainActivity extends SampleBaseActivity implements SamplePlan
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        getSupportMenuInflater().inflate(R.menu.sample_more,menu);
         return  true;
     }
 
@@ -98,10 +101,27 @@ public class SampleMainActivity extends SampleBaseActivity implements SamplePlan
             case android.R.id.home:
                 switchMenu();
                 break;
+            case R.id.menu_tab:
+                Intent tabIntent = new Intent(this,SampleTabActivity.class);
+                startActivity(tabIntent);
+                break;
+            case R.id.menu_drawlayout:
+                Intent drawLayoutIntent = new Intent(this,SampDrawLayoutActivity.class);
+                startActivity(drawLayoutIntent);
+                break;
             default:
                 break;
         }
         return  true;
+    }
+
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+        menu.findItem(R.id.menu_tab).setVisible(!drawerOpen);
+        menu.findItem(R.id.menu_drawlayout).setVisible(!drawerOpen);
+        return super.onPrepareOptionsMenu(menu);
     }
 
     public void switchMenu() {
@@ -125,7 +145,7 @@ public class SampleMainActivity extends SampleBaseActivity implements SamplePlan
         if(position == 0){
             fragment = new SampleGridFragment();
         }else{
-            fragment = PlanetFragment.newInstance(position);
+            fragment = SamplePlanetFragment.newInstance(position);
         }
 
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -163,53 +183,5 @@ public class SampleMainActivity extends SampleBaseActivity implements SamplePlan
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    /**
-     * Fragment that appears in the "content_frame", shows a planet
-     */
-    public static class PlanetFragment extends SampleBaseFragment implements SwipeRefreshLayout.OnRefreshListener{
-        public static final String ARG_PLANET_NUMBER = "planet_number";
-        private RoundedImageView mRoundedImageView;
-        private SwipeRefreshLayout mSwipLayout;
 
-        public PlanetFragment() {
-            // Empty constructor required for fragment subclasses
-        }
-
-        public static SampleBaseFragment newInstance(int position) {
-            SampleBaseFragment fragment = new PlanetFragment();
-            Bundle args = new Bundle();
-            args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            int i = getArguments().getInt(ARG_PLANET_NUMBER);
-            View view = inflater.inflate(R.layout.sample_frament_card,null);
-            mSwipLayout = (SwipeRefreshLayout)view.findViewById(R.id.layout_swiprefresh);
-            mSwipLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
-                    android.R.color.holo_green_light,
-                    android.R.color.holo_orange_light,
-                    android.R.color.holo_red_light);
-            mSwipLayout.setOnRefreshListener(this);
-            mRoundedImageView = (RoundedImageView)view.findViewById(R.id.round_imageView);
-            mRoundedImageView.setCornerRadius((float)(i*20));
-            return view;
-        }
-
-        @Override
-        public void onRefresh() {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Random random = new Random();
-                    mRoundedImageView.setCornerRadius((float)random.nextInt(200));
-                    mRoundedImageView.invalidate();
-                    mSwipLayout.setRefreshing(false);
-                }
-            },3000);
-        }
-    }
 }
