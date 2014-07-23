@@ -50,7 +50,9 @@ public class SampleNoteAdapter extends RecyclerView.Adapter<SampleNoteAdapter.Vi
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         Note note = mNotes.get(position);
         viewHolder.textView.setText(note.getTitle());
-        Ion.with(mContext).load(note.getResource().getUrl()).intoImageView(viewHolder.imageView);
+        if(note.getResource()!=null){
+            Ion.with(mContext).load(note.getResource().getUrl()).intoImageView(viewHolder.imageView);
+        }
         mContext.getExternalCacheDir();
     }
 

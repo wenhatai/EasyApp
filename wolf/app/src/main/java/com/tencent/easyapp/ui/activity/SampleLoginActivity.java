@@ -65,6 +65,7 @@ public class SampleLoginActivity extends SampleBaseActivity implements View.OnCl
     private void makeLogin(){
         Intent intent = new Intent(this,SampleGridActivity.class);
         startActivity(intent);
+        finish();
     }
 
     private class BaseUiListener implements IUiListener {

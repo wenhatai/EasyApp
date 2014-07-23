@@ -1,11 +1,14 @@
 package com.tencent.easyapp;
 
+import java.util.List;
+import java.util.ArrayList;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
 import de.greenrobot.dao.AbstractDao;
 import de.greenrobot.dao.Property;
+import de.greenrobot.dao.internal.SqlUtils;
 import de.greenrobot.dao.internal.DaoConfig;
 
 import com.tencent.easyapp.Note;
@@ -28,8 +31,10 @@ public class NoteDao extends AbstractDao<Note, Long> {
         public final static Property Content = new Property(2, String.class, "content", false, "CONTENT");
         public final static Property Create_timestamp = new Property(3, long.class, "create_timestamp", false, "CREATE_TIMESTAMP");
         public final static Property Update_timestamp = new Property(4, long.class, "update_timestamp", false, "UPDATE_TIMESTAMP");
-        public final static Property Resource_id = new Property(5, int.class, "resource_id", false, "RESOURCE_ID");
+        public final static Property Resource_id = new Property(5, long.class, "resource_id", false, "RESOURCE_ID");
     };
+
+    private DaoSession daoSession;
 
 
     public NoteDao(DaoConfig config) {
@@ -38,6 +43,7 @@ public class NoteDao extends AbstractDao<Note, Long> {
     
     public NoteDao(DaoConfig config, DaoSession daoSession) {
         super(config, daoSession);
+        this.daoSession = daoSession;
     }
 
     /** Creates the underlying database table. */
@@ -77,6 +83,12 @@ public class NoteDao extends AbstractDao<Note, Long> {
         stmt.bindLong(6, entity.getResource_id());
     }
 
+    @Override
+    protected void attachEntity(Note entity) {
+        super.attachEntity(entity);
+        entity.__setDaoSession(daoSession);
+    }
+
     /** @inheritdoc */
     @Override
     public Long readKey(Cursor cursor, int offset) {
@@ -92,7 +104,7 @@ public class NoteDao extends AbstractDao<Note, Long> {
             cursor.getString(offset + 2), // content
             cursor.getLong(offset + 3), // create_timestamp
             cursor.getLong(offset + 4), // update_timestamp
-            cursor.getInt(offset + 5) // resource_id
+            cursor.getLong(offset + 5) // resource_id
         );
         return entity;
     }
@@ -105,7 +117,7 @@ public class NoteDao extends AbstractDao<Note, Long> {
         entity.setContent(cursor.getString(offset + 2));
         entity.setCreate_timestamp(cursor.getLong(offset + 3));
         entity.setUpdate_timestamp(cursor.getLong(offset + 4));
-        entity.setResource_id(cursor.getInt(offset + 5));
+        entity.setResource_id(cursor.getLong(offset + 5));
      }
     
     /** @inheritdoc */
@@ -131,4 +143,97 @@ public class NoteDao extends AbstractDao<Note, Long> {
         return true;
     }
     
+    private String selectDeep;
+
+    protected String getSelectDeep() {
+        if (selectDeep == null) {
+            StringBuilder builder = new StringBuilder("SELECT ");
+            SqlUtils.appendColumns(builder, "T", getAllColumns());
+            builder.append(',');
+            SqlUtils.appendColumns(builder, "T0", daoSession.getResourceDao().getAllColumns());
+            builder.append(" FROM NOTE T");
+            builder.append(" LEFT JOIN RESOURCE T0 ON T.'RESOURCE_ID'=T0.'_id'");
+            builder.append(' ');
+            selectDeep = builder.toString();
+        }
+        return selectDeep;
+    }
+    
+    protected Note loadCurrentDeep(Cursor cursor, boolean lock) {
+        Note entity = loadCurrent(cursor, 0, lock);
+        int offset = getAllColumns().length;
+
+        Resource resource = loadCurrentOther(daoSession.getResourceDao(), cursor, offset);
+         if(resource != null) {
+            entity.setResource(resource);
+        }
+
+        return entity;    
+    }
+
+    public Note loadDeep(Long key) {
+        assertSinglePk();
+        if (key == null) {
+            return null;
+        }
+
+        StringBuilder builder = new StringBuilder(getSelectDeep());
+        builder.append("WHERE ");
+        SqlUtils.appendColumnsEqValue(builder, "T", getPkColumns());
+        String sql = builder.toString();
+        
+        String[] keyArray = new String[] { key.toString() };
+        Cursor cursor = db.rawQuery(sql, keyArray);
+        
+        try {
+            boolean available = cursor.moveToFirst();
+            if (!available) {
+                return null;
+            } else if (!cursor.isLast()) {
+                throw new IllegalStateException("Expected unique result, but count was " + cursor.getCount());
+            }
+            return loadCurrentDeep(cursor, true);
+        } finally {
+            cursor.close();
+        }
+    }
+    
+    /** Reads all available rows from the given cursor and returns a list of new ImageTO objects. */
+    public List<Note> loadAllDeepFromCursor(Cursor cursor) {
+        int count = cursor.getCount();
+        List<Note> list = new ArrayList<Note>(count);
+        
+        if (cursor.moveToFirst()) {
+            if (identityScope != null) {
+                identityScope.lock();
+                identityScope.reserveRoom(count);
+            }
+            try {
+                do {
+                    list.add(loadCurrentDeep(cursor, false));
+                } while (cursor.moveToNext());
+            } finally {
+                if (identityScope != null) {
+                    identityScope.unlock();
+                }
+            }
+        }
+        return list;
+    }
+    
+    protected List<Note> loadDeepAllAndCloseCursor(Cursor cursor) {
+        try {
+            return loadAllDeepFromCursor(cursor);
+        } finally {
+            cursor.close();
+        }
+    }
+    
+
+    /** A raw-style query where you can pass any WHERE clause and arguments. */
+    public List<Note> queryDeep(String where, String... selectionArg) {
+        Cursor cursor = db.rawQuery(getSelectDeep() + where, selectionArg);
+        return loadDeepAllAndCloseCursor(cursor);
+    }
+ 
 }

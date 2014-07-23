@@ -25,7 +25,7 @@ public class ResourceDao extends AbstractDao<Resource, Long> {
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Url = new Property(1, String.class, "url", false, "URL");
-        public final static Property Descrption = new Property(2, String.class, "descrption", false, "DESCRPTION");
+        public final static Property Description = new Property(2, String.class, "description", false, "DESCRIPTION");
     };
 
 
@@ -43,7 +43,7 @@ public class ResourceDao extends AbstractDao<Resource, Long> {
         db.execSQL("CREATE TABLE " + constraint + "'RESOURCE' (" + //
                 "'_id' INTEGER PRIMARY KEY ," + // 0: id
                 "'URL' TEXT NOT NULL ," + // 1: url
-                "'DESCRPTION' TEXT NOT NULL );"); // 2: descrption
+                "'DESCRIPTION' TEXT NOT NULL );"); // 2: description
     }
 
     /** Drops the underlying database table. */
@@ -62,7 +62,7 @@ public class ResourceDao extends AbstractDao<Resource, Long> {
             stmt.bindLong(1, id);
         }
         stmt.bindString(2, entity.getUrl());
-        stmt.bindString(3, entity.getDescrption());
+        stmt.bindString(3, entity.getDescription());
     }
 
     /** @inheritdoc */
@@ -77,7 +77,7 @@ public class ResourceDao extends AbstractDao<Resource, Long> {
         Resource entity = new Resource( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.getString(offset + 1), // url
-            cursor.getString(offset + 2) // descrption
+            cursor.getString(offset + 2) // description
         );
         return entity;
     }
@@ -87,7 +87,7 @@ public class ResourceDao extends AbstractDao<Resource, Long> {
     public void readEntity(Cursor cursor, Resource entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setUrl(cursor.getString(offset + 1));
-        entity.setDescrption(cursor.getString(offset + 2));
+        entity.setDescription(cursor.getString(offset + 2));
      }
     
     /** @inheritdoc */

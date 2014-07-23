@@ -10,7 +10,7 @@ public class Resource {
     /** Not-null value. */
     private String url;
     /** Not-null value. */
-    private String descrption;
+    private String description;
 
     public Resource() {
     }
@@ -19,10 +19,10 @@ public class Resource {
         this.id = id;
     }
 
-    public Resource(Long id, String url, String descrption) {
+    public Resource(Long id, String url, String description) {
         this.id = id;
         this.url = url;
-        this.descrption = descrption;
+        this.description = description;
     }
 
     public Long getId() {
@@ -44,13 +44,13 @@ public class Resource {
     }
 
     /** Not-null value. */
-    public String getDescrption() {
-        return descrption;
+    public String getDescription() {
+        return description;
     }
 
     /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setDescrption(String descrption) {
-        this.descrption = descrption;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 }
