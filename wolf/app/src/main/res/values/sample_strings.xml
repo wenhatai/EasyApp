@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="login">登录</string>
     <string name="connect_qq">与qq连接</string>
     <string name="connect_weibo">与微博连接</string>
 </resources>

@@ -35,11 +35,15 @@ public class SampleLoginActivity extends SampleBaseActivity implements View.OnCl
         setContentView(R.layout.sample_activity_login);
         findViewById(R.id.connect_qq).setOnClickListener(this);
         findViewById(R.id.connect_weibo).setOnClickListener(this);
+        findViewById(R.id.login).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+            case R.id.login:
+                makeLogin();
+                break;
             case R.id.connect_qq:
                 getTencent().login(this, EappConstant.QQScope, new BaseUiListener());
                 break;
@@ -54,9 +58,13 @@ public class SampleLoginActivity extends SampleBaseActivity implements View.OnCl
                 mSsoHandler.authorize(new AuthListener());
                 break;
             default:
-
                 break;
         }
+    }
+
+    private void makeLogin(){
+        Intent intent = new Intent(this,SampleGridActivity.class);
+        startActivity(intent);
     }
 
     private class BaseUiListener implements IUiListener {

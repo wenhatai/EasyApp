@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <item name="login" type="id"></item>
+
     <item name="layout_bottom" type="id"></item>
 
     <item name="text_content" type="id"></item>
