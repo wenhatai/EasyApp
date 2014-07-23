@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.koushikdutta.ion.Ion;
+import com.koushikdutta.ion.IonImageViewRequestBuilder;
+import com.tencent.easyapp.Note;
 import com.tencent.easyapp.R;
 import com.tencent.easyapp.rest.modle.SampleJustinTvStreamData;
 
@@ -18,22 +20,20 @@ import java.util.List;
 /**
  * Created by parrzhang on 2014/7/16.
  */
-public class SampleGridAdapter extends RecyclerView.Adapter<SampleGridAdapter.ViewHolder>{
-
-    private String testUrl = "http://rack.1.mshcdn.com/media/ZgkyMDE0LzA2LzI1LzU5L0FuZHJvaWQxLjE3YjNiLmpwZwpwCXRodW1iCTEyMDB4NjI3IwplCWpwZw/293f6197/1cb/Android1.jpg";
+public class SampleNoteAdapter extends RecyclerView.Adapter<SampleNoteAdapter.ViewHolder>{
 
     private Context mContext;
     private LayoutInflater mInflater;
-    private List<SampleJustinTvStreamData> mSampleJustinTvStreamDatas;
+    private List<Note> mNotes;
 
-    public SampleGridAdapter(Context context,List<SampleJustinTvStreamData> sampleJustinTvStreamDatas){
+    public SampleNoteAdapter(Context context, List<Note> notes){
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
-        this.mSampleJustinTvStreamDatas = sampleJustinTvStreamDatas;
+        this.mNotes = notes;
     }
 
-    public void setContent(List<SampleJustinTvStreamData> streamDatas){
-        this.mSampleJustinTvStreamDatas = streamDatas;
+    public void setContent(List<Note> notes){
+        this.mNotes = notes;
         notifyDataSetChanged();
     }
 
@@ -46,18 +46,17 @@ public class SampleGridAdapter extends RecyclerView.Adapter<SampleGridAdapter.Vi
     }
 
 
-    //it cannot excute by imageloader.i donot know why
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
-        SampleJustinTvStreamData stream = mSampleJustinTvStreamDatas.get(position);
-        viewHolder.textView.setText(stream.getTitle());
-        Ion.with(mContext).load(testUrl).intoImageView(viewHolder.imageView);
+        Note note = mNotes.get(position);
+        viewHolder.textView.setText(note.getTitle());
+        Ion.with(mContext).load(note.getResource().getUrl()).intoImageView(viewHolder.imageView);
         mContext.getExternalCacheDir();
     }
 
     @Override
     public int getItemCount() {
-        return mSampleJustinTvStreamDatas==null?0:mSampleJustinTvStreamDatas.size();
+        return mNotes==null?0:mNotes.size();
     }
 
 

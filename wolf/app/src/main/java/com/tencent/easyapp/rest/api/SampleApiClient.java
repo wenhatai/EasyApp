@@ -1,7 +1,7 @@
 package com.tencent.easyapp.rest.api;
 
+import com.tencent.easyapp.Note;
 import com.tencent.easyapp.rest.error.EappErrorHandler;
-import com.tencent.easyapp.rest.modle.SampleJustinTvStreamData;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.http.GET;
@@ -16,15 +16,16 @@ public class SampleApiClient {
     private static EappApiService sEappApiService;
 
     public interface EappApiService{
-        @GET("/stream/list.json")
-        void getStreams(@Query("limit") int limit, @Query("offset") int offset,
-                        Callback<List<SampleJustinTvStreamData>> callback);
+        @GET("/note/")
+        void getStreams(@Query("limit") int limit, @Query("page") int page,
+                        Callback<List<Note>> callback);
     }
 
     public static EappApiService getEappApiClient(){
         if(sEappApiService == null){
+            //ip地址会变动，ipconfig之后手动修改
             RestAdapter restAdapter = new RestAdapter.Builder()
-                    .setEndpoint("http://api.justin.tv/api")
+                    .setEndpoint("http://10.66.93.159:8080/easyapp/api/v1")
                     .setErrorHandler(new EappErrorHandler())
                     .build();
             sEappApiService = restAdapter.create(EappApiService.class);
