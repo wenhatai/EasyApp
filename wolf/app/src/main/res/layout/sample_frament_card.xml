@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/layout_swiprefresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.makeramen.RoundedImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@id/round_imageView"
+        android:src="@drawable/sample_earth"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:corner_radius="5dip"
+        app:border_width="1dip"
+        app:border_color="#333333"
+        app:mutate_background="true"
+        />
+</android.support.v4.widget.SwipeRefreshLayout>

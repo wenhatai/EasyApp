@@ -1,16 +1,12 @@
 package com.tencent.easyapp.ui.fragment;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.ScrollView;
 
 import com.google.gson.Gson;
 import com.tencent.easyapp.DaoSession;
@@ -56,7 +52,7 @@ public class SampleGridFragment extends SampleBaseFragment implements SwipeRefre
     public void init(View view) {
         mSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.layout_swiprefresh);
         mSwipeLayout.setOnRefreshListener(this);
-        mSwipeLayout.setColorScheme(android.R.color.holo_blue_bright,
+        mSwipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);

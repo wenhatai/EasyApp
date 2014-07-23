@@ -12,4 +12,9 @@
 
     <item name="recyclerview" type="id"></item>
     <item name="listview" type="id"></item>
+    <item name="card_view" type="id"></item>
+    <item name="drawer_layout" type="id"></item>
+    <item name="content_frame" type="id"></item>
+    <item name="round_imageView" type="id"></item>
+
 </resources>

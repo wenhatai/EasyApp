@@ -2,25 +2,30 @@ package com.tencent.easyapp.ui.activity;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.makeramen.RoundedImageView;
 import com.tencent.easyapp.R;
 import com.tencent.easyapp.ui.adapter.SamplePlanetAdapter;
 import com.tencent.easyapp.ui.common.SampleBaseActivity;
 import com.tencent.easyapp.ui.common.SampleBaseFragment;
 import com.tencent.easyapp.ui.fragment.SampleGridFragment;
+
+import java.util.Random;
 
 
 /**
@@ -55,7 +60,6 @@ public class SampleMainActivity extends SampleBaseActivity implements SamplePlan
         mDrawerList.setAdapter(new SamplePlanetAdapter(mPlanetTitles, this));
         // enable ActionBar app icon to behave as action to toggle nav drawer
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
 
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the sliding drawer and the action bar app icon
@@ -80,6 +84,31 @@ public class SampleMainActivity extends SampleBaseActivity implements SamplePlan
 
         if (savedInstanceState == null) {
             selectItem(0);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return  true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                switchMenu();
+                break;
+            default:
+                break;
+        }
+        return  true;
+    }
+
+    public void switchMenu() {
+        if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+            mDrawerLayout.closeDrawer(mDrawerList);
+        } else {
+            mDrawerLayout.openDrawer(mDrawerList);
         }
     }
 
@@ -137,8 +166,10 @@ public class SampleMainActivity extends SampleBaseActivity implements SamplePlan
     /**
      * Fragment that appears in the "content_frame", shows a planet
      */
-    public static class PlanetFragment extends SampleBaseFragment {
+    public static class PlanetFragment extends SampleBaseFragment implements SwipeRefreshLayout.OnRefreshListener{
         public static final String ARG_PLANET_NUMBER = "planet_number";
+        private RoundedImageView mRoundedImageView;
+        private SwipeRefreshLayout mSwipLayout;
 
         public PlanetFragment() {
             // Empty constructor required for fragment subclasses
@@ -156,9 +187,29 @@ public class SampleMainActivity extends SampleBaseActivity implements SamplePlan
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             int i = getArguments().getInt(ARG_PLANET_NUMBER);
-            TextView textView = new TextView(getActivity());
-            textView.setText("fragment"+i);
-            return textView;
+            View view = inflater.inflate(R.layout.sample_frament_card,null);
+            mSwipLayout = (SwipeRefreshLayout)view.findViewById(R.id.layout_swiprefresh);
+            mSwipLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                    android.R.color.holo_green_light,
+                    android.R.color.holo_orange_light,
+                    android.R.color.holo_red_light);
+            mSwipLayout.setOnRefreshListener(this);
+            mRoundedImageView = (RoundedImageView)view.findViewById(R.id.round_imageView);
+            mRoundedImageView.setCornerRadius((float)(i*20));
+            return view;
+        }
+
+        @Override
+        public void onRefresh() {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Random random = new Random();
+                    mRoundedImageView.setCornerRadius((float)random.nextInt(200));
+                    mRoundedImageView.invalidate();
+                    mSwipLayout.setRefreshing(false);
+                }
+            },3000);
         }
     }
 }
