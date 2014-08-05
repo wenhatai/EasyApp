@@ -1,0 +1,11 @@
+ {% extends "base.html" %}
+ {% block content %}
+     <form action="{{ url_for('app_info') }}" method="post">
+     <p>应用名：<input type="text" name="app_name"></p>
+     <p>包名：<input type="text" name="pkg_name"></p>
+     <input type="submit">
+     </form>
+     {% if ret %}
+     <p> {{ ret }}</p>
+     {% endif %}
+ {% endblock %}
