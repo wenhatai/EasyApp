@@ -3,13 +3,13 @@
 <head lang="en">
     <meta charset="UTF-8">
     {% if title %}
-    <title>EasyApp-{{ title }}</title>
+        <title>EasyApp-{{ title }}</title>
     {% else %}
-    <title>EasyApp</title>
+        <title>EasyApp</title>
     {% endif %}
 </head>
 <body>
-    {% block content %}
-    {% endblock %}
+{% block content %}
+{% endblock %}
 </body>
 </html>

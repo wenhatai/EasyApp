@@ -1,21 +1,45 @@
-import os,time
-from utils import eapp_mkdir,writefile
+# encoding=utf-8
 
+import os
+import time
+
+from utils import eapp_mkdir
+from manifest import AndroidManifest, Activity
+from module.test_module import TestModule
 
 BASE_DIR = '/Users/wxz/EAppOutDir'
-ANDROID_MANIFAST_FILE_NAME = 'AndroidManifest.xml'
 
 
+# 创建工程
 def make(app_name, pkg_name):
     path = BASE_DIR + os.sep + time.strftime('%Y%m%d%H%I%M%S') + os.sep + app_name
     eapp_mkdir(path)
 
-    create_manifast(path, pkg_name)
+    manifest = AndroidManifest(path, pkg_name)
+    test_module = TestModule(path, pkg_name)
+    test_module.create(manifest)
+    manifest.create()
+
+
+def make_bak(app_name, pkg_name):
+    path = BASE_DIR + os.sep + time.strftime('%Y%m%d%H%I%M%S') + os.sep + app_name
+    eapp_mkdir(path)
+
+    manifest = AndroidManifest(path, pkg_name)
+    activity = Activity('.ui.activity.SampleLoginActivity')
+    activity.set_intent_filter('''<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>''')
+    activity.set_label('@string/app_name')
+    manifest.add_activity(activity)
+    manifest.add_permisson('android.permission.INTERNET')
+    manifest.create()
 
     # create src dir
     src = path + os.sep + 'src'
-    pkgDirs = pkg_name.split('.')
-    for pkg in pkgDirs:
+    pkg_dirs = pkg_name.split('.')
+    for pkg in pkg_dirs:
         src += os.sep
         src += pkg
     eapp_mkdir(src)
@@ -29,21 +53,3 @@ def make(app_name, pkg_name):
     eapp_mkdir(drawable)
     values = res + os.sep + 'values'
     eapp_mkdir(values)
-
-
-def create_manifast(path, pkg_name):
-    content = '''<?xml version="1.0" encoding="utf-8"?>\n''' \
-                '''<manifest xmlns:android="http://schemas.android.com/apk/res/android\n''' \
-                '''     xmlns:tools="http://schemas.android.com/tools"\n''' \
-                '''     package="''' + pkg_name + '''"\n''' \
-                '''     android:versionCode="1"\n''' \
-                '''     android:versionName="1.0">\n\n''' \
-                '''     <uses-sdk tools:node="replace" />\n''' \
-                '''     <application\n''' \
-                '''         android:icon="@drawable/ic_launcher"\n''' \
-                '''         android:label="@string/app_name"\n''' \
-                '''         android:theme="@style/AppTheme">\n''' \
-                '''     </application>\n''' \
-                '''</manifest>'''
-
-    writefile(path + os.sep + ANDROID_MANIFAST_FILE_NAME, content)
