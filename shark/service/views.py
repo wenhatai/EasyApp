@@ -2,7 +2,6 @@ from flask import Flask, render_template, request
 
 from static import project
 
-
 app = Flask(__name__)
 
 
@@ -11,12 +10,10 @@ def app_info():
     if request.method == 'POST':
         app_name = request.form['app_name']
         pkg_name = request.form['pkg_name']
-        project.make(app_name, pkg_name)
-        ret = 'sucess!'
+        load_url = project.make(app_name, pkg_name)
+        return render_template("index.html", title='Home', load_url=load_url)
     else:
-        ret = 'error!'
-
-    return render_template("index.html", title='Home', ret=ret)
+        return render_template("index.html", title='Home')
 
 
 if __name__ == '__main__':

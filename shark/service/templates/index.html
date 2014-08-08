@@ -4,8 +4,11 @@
         <p>应用名：<input type="text" name="app_name"></p>
 
         <p>包名：<input type="text" name="pkg_name"></p>
-        <input type="submit">
+        <input type="submit" name="提交">
     </form>
+    {% if load_url %}
+        <a href={{ load_url}}> 下载 </a>
+    {% endif %}
     {% if ret %}
         <p> {{ ret }}</p>
     {% endif %}

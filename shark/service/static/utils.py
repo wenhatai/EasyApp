@@ -4,6 +4,7 @@ import os
 import shutil
 import re
 import sys
+import zipfile
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -40,3 +41,29 @@ def replace_content(src_path, dst_path, old, new):
     eapp_mkdir(os.path.dirname(dst_path))
     f = open(src_path, "r+")
     open(dst_path, 'w').write(re.sub(old, new, f.read()))
+
+
+# 压缩文件
+def zip_file(target, source):
+    zip_command = "zip -qr '%s' %s" % (target, source)
+    if os.system(zip_command) == 0:
+        return True
+    else:
+        return False
+
+
+def zip_dir(dirname, zipfilename):
+    filelist = []
+    if os.path.isfile(dirname):
+        filelist.append(dirname)
+    else :
+        for root, dirs, files in os.walk(dirname):
+            for name in files:
+                filelist.append(os.path.join(root, name))
+
+    zf = zipfile.ZipFile(zipfilename, "w", zipfile.zlib.DEFLATED)
+    for tar in filelist:
+        arcname = tar[len(dirname):]
+        #print arcname
+        zf.write(tar,arcname)
+    zf.close()
