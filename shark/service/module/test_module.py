@@ -20,3 +20,7 @@ class TestModule(BaseModule):
             </intent-filter>''')
         activity.set_label('@string/app_name')
         self.manifest_activities = [activity]
+
+    @classmethod
+    def descriptions(cls):
+        return '测试模块'

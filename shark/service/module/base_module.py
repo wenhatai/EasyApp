@@ -47,3 +47,8 @@ class BaseModule:
     # append string到strings.xml
     def appand_string(self):
         pass
+
+    # 模块说明，用于页面上的展示说明
+    @classmethod
+    def descriptions(cls):
+        pass

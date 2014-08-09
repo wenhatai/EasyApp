@@ -6,6 +6,7 @@ import re
 import sys
 import zipfile
 
+# 解决读取中文异常
 reload(sys)
 sys.setdefaultencoding('utf-8')
 

@@ -4,6 +4,14 @@
         <p>应用名：<input type="text" name="app_name"></p>
 
         <p>包名：<input type="text" name="pkg_name"></p>
+
+        选择需要的组件：<br>
+        {% if module_list %}
+            {% for name, module in module_list.items() %}
+                <input type="checkbox" name="checkbox" value={{ name }} >{{ module.descriptions() }} <br>
+            {% endfor %}
+        {% endif %}
+        <br>
         <input type="submit" name="提交">
     </form>
     {% if load_url %}
