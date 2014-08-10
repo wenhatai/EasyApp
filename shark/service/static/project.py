@@ -3,6 +3,8 @@
 import os
 import time
 from module.base_module import BaseModule
+from static.strings import Strings
+from static.styles import Styles
 
 from utils import eapp_mkdir, zip_dir, mvfile_replacecontent, mv_folder, mv_file
 from manifest import AndroidManifest
@@ -34,12 +36,16 @@ def make(app_name, pkg_name, check_list):
     # 构建需要的模块
     manifest = AndroidManifest(path, pkg_name)
     gradle = Gradle(path, pkg_name)
+    strings = Strings(path, app_name)
+    styles = Styles(path)
     for check_module in check_list:
         module = MODULE_LIST[check_module]
         tmp = module(path, pkg_name)
-        tmp.create(manifest, gradle)
+        tmp.create(manifest, gradle, strings, styles)
     manifest.create()
     gradle.create()
+    strings.create()
+    styles.create()
 
     # 打包，返回下载url
     zip_dir(base_path, base_path + '.zip')
@@ -61,10 +67,6 @@ def create_default_file(path, app_name):
     eapp_mkdir(values)
     libs = path + '/app/libs'
     eapp_mkdir(libs)
-
-    # strings.xml
-    mvfile_replacecontent(BaseModule.PRO_SRC_PATH + 'app/src/main/res/values/strings.xml',
-                    dst_path + 'res/values/strings.xml', 'easyapp', app_name)
 
     # icon
     mv_file(BaseModule.PRO_SRC_PATH + 'app/src/main/res/drawable-hdpi/ic_launcher.png',

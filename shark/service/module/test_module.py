@@ -39,6 +39,9 @@ class TestModule(BaseModule):
         self.gradle_dependencies = ["'com.android.support:support-v4:+'",
                                     "'com.android.support:recyclerview-v7:+'"]
 
+        # strings
+        self.res_strings = ['''<string name="login">登录</string>''']
+
     # 网页上的模块说明
     @classmethod
     def descriptions(cls):

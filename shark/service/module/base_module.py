@@ -22,11 +22,13 @@ class BaseModule:
         self.gradle_dependencies = []
         self.gradle_java_src_dirs = []
         self.gradle_res_src_dirs = []
+        self.res_strings = []
+        self.res_styles = []
 
         self.path = path + os.sep
         self.pkg_name = pkg_name
 
-    def create(self, manifest, gradle):
+    def create(self, manifest, gradle, strings, styles):
         # 移动java文件
         pkg_path = self.pkg_name.replace('.', os.sep)
         for src_file in self.src_files:
@@ -59,6 +61,12 @@ class BaseModule:
 
         for res_src in self.gradle_res_src_dirs:
             gradle.add_res_src(res_src)
+
+        for string in self.res_strings:
+            strings.add_string(string)
+
+        for style in self.res_styles:
+            styles.add_style(style)
 
     # append string到strings.xml
     def appand_string(self):
