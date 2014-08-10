@@ -29,16 +29,23 @@ def write_file(path, content):
     f.close()
 
 
-### 复制文件到目标目录
-def mv_file(src, dst):
+### 复制文件夹到目标目录
+def mv_folder(src, dst):
     if not os.path.exists(dst):
         shutil.copytree(src, dst)
     else:
         print dst + ' dst already exsits'
 
 
+### 复制文件
+def mv_file(src_path, dst_path):
+    eapp_mkdir(os.path.dirname(dst_path))
+    f = open(src_path, "r+")
+    open(dst_path, 'w').write(f.read())
+
+
 ### 复制文件到目标目录，并替换文本内容
-def replace_content(src_path, dst_path, old, new):
+def mvfile_replacecontent(src_path, dst_path, old, new):
     eapp_mkdir(os.path.dirname(dst_path))
     f = open(src_path, "r+")
     open(dst_path, 'w').write(re.sub(old, new, f.read()))

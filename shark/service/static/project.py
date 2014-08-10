@@ -2,10 +2,12 @@
 
 import os
 import time
+from module.base_module import BaseModule
 
-from utils import eapp_mkdir, zip_dir
-from manifest import AndroidManifest, Activity
+from utils import eapp_mkdir, zip_dir, mvfile_replacecontent, mv_folder, mv_file
+from manifest import AndroidManifest
 from module.test_module import TestModule
+from gradle import Gradle
 import shutil
 
 BASE_DIR = '/Users/wxz/EAppOutDir'
@@ -27,13 +29,17 @@ def make(app_name, pkg_name, check_list):
     path = base_path + os.sep + app_name
     eapp_mkdir(path)
 
+    create_default_file(path, app_name)
+
     # 构建需要的模块
     manifest = AndroidManifest(path, pkg_name)
+    gradle = Gradle(path, pkg_name)
     for check_module in check_list:
         module = MODULE_LIST[check_module]
         tmp = module(path, pkg_name)
-        tmp.create(manifest)
+        tmp.create(manifest, gradle)
     manifest.create()
+    gradle.create()
 
     # 打包，返回下载url
     zip_dir(base_path, base_path + '.zip')
@@ -41,35 +47,25 @@ def make(app_name, pkg_name, check_list):
     return LOAD_BASE_URL + zip_file_name + '.zip'
 
 
-def make_bak(app_name, pkg_name):
-    path = BASE_DIR + os.sep + time.strftime('%Y%m%d%H%I%M%S') + os.sep + app_name
-    eapp_mkdir(path)
-
-    manifest = AndroidManifest(path, pkg_name)
-    activity = Activity('.ui.activity.SampleLoginActivity')
-    activity.set_intent_filter('''<intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>''')
-    activity.set_label('@string/app_name')
-    manifest.add_activity(activity)
-    manifest.add_permisson('android.permission.INTERNET')
-    manifest.create()
-
-    # create src dir
-    src = path + os.sep + 'src'
-    pkg_dirs = pkg_name.split('.')
-    for pkg in pkg_dirs:
-        src += os.sep
-        src += pkg
-    eapp_mkdir(src)
-
+# 初始化一些文件目录
+def create_default_file(path, app_name):
+    dst_path = path + '/app/src/main/'
     # create res dir
-    res = path + os.sep + 'res'
+    res = dst_path + 'res'
     eapp_mkdir(res)
-    layout = res + os.sep + 'layout'
+    layout = dst_path + 'layout'
     eapp_mkdir(layout)
-    drawable = res + os.sep + 'drawable'
+    drawable = dst_path + 'drawable'
     eapp_mkdir(drawable)
-    values = res + os.sep + 'values'
+    values = dst_path + 'values'
     eapp_mkdir(values)
+    libs = path + '/app/libs'
+    eapp_mkdir(libs)
+
+    # strings.xml
+    mvfile_replacecontent(BaseModule.PRO_SRC_PATH + 'app/src/main/res/values/strings.xml',
+                    dst_path + 'res/values/strings.xml', 'easyapp', app_name)
+
+    # icon
+    mv_file(BaseModule.PRO_SRC_PATH + 'app/src/main/res/drawable-hdpi/ic_launcher.png',
+            dst_path + 'res/drawable-hdpi/ic_launcher.png')

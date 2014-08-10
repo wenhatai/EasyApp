@@ -16,6 +16,8 @@ class AndroidManifest:
         self.permissions = []
         # activity
         self.activities = []
+        # 貌似直接复制还来的快一些，提供一个纯string的, activity和services都可以丢在这里
+        self.app_elems = []
 
     def set_application(self, application):
         self.application = application
@@ -26,9 +28,12 @@ class AndroidManifest:
     def add_activity(self, activity):
         self.activities.append(activity)
 
+    def add_app_elems(self, elem):
+        self.app_elems.append(elem)
+
     def create(self):
         content = '''<?xml version="1.0" encoding="utf-8"?>\n''' \
-                '''<manifest xmlns:android="http://schemas.android.com/apk/res/android\n''' \
+                '''<manifest xmlns:android="http://schemas.android.com/apk/res/android"\n''' \
                 '''     xmlns:tools="http://schemas.android.com/tools"\n''' \
                 '''     package="''' + self.pkg_name + '''"\n''' \
                 '''     android:versionCode="1"\n''' \
@@ -48,6 +53,9 @@ class AndroidManifest:
         for activity in self.activities:
             content += activity.parse()
 
+        for elem in self.app_elems:
+            content += elem
+
         content += '''     </application>\n'''
 
         # permission
@@ -55,7 +63,7 @@ class AndroidManifest:
             content += '    <uses-permission android:name=\"' + permission + '\"/>\n'
 
         content += '''</manifest>'''
-        write_file(self.path + os.sep + AndroidManifest.FILE_NAME, content)
+        write_file(self.path + '/app/src/main/' + AndroidManifest.FILE_NAME, content)
 
 
 #as 构造manifast里面的activity
