@@ -24,6 +24,7 @@ def eapp_mkdir(path):
 
 
 def write_file(path, content):
+    eapp_mkdir(os.path.dirname(path))
     f = open(path, 'w')
     f.write(content)
     f.close()
@@ -64,7 +65,7 @@ def zip_dir(dirname, zipfilename):
     filelist = []
     if os.path.isfile(dirname):
         filelist.append(dirname)
-    else :
+    else:
         for root, dirs, files in os.walk(dirname):
             for name in files:
                 filelist.append(os.path.join(root, name))
@@ -73,5 +74,5 @@ def zip_dir(dirname, zipfilename):
     for tar in filelist:
         arcname = tar[len(dirname):]
         #print arcname
-        zf.write(tar,arcname)
+        zf.write(tar, arcname)
     zf.close()

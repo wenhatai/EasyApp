@@ -1,5 +1,5 @@
 from module.base_module import BaseModule
-from static.utils import mv_file, mv_folder, write_file
+from utils import mv_file, mv_folder, write_file
 
 __author__ = 'wxz'
 
@@ -13,13 +13,13 @@ class Gradle:
         self.res_src_dirs = []
 
     def add_dependency(self, dependency):
-        self.dependencies.append(dependency)
+        self.dependencies += dependency
 
     def add_java_src(self, java_src):
-        self.java_src_dirs.append(java_src)
+        self.java_src_dirs += java_src
 
     def add_res_src(self, res_src):
-        self.res_src_dirs.append(res_src)
+        self.res_src_dirs += res_src
 
     def create(self):
         self.create_default()
@@ -66,7 +66,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])'''
         for dependency in self.dependencies:
-            content += "    compile " + dependency + "\n"
+            content += "\n    compile " + dependency + "\n"
         content += "}"
 
         write_file(self.path + '/app/build.gradle', content)

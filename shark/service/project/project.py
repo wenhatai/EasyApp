@@ -2,15 +2,16 @@
 
 import os
 import time
-from module.base_module import BaseModule
-from static.strings import Strings
-from static.styles import Styles
+import shutil
 
-from utils import eapp_mkdir, zip_dir, mvfile_replacecontent, mv_folder, mv_file
+from module.base_module import BaseModule
+from strings import Strings
+from styles import Styles
+from utils import eapp_mkdir, zip_dir, mv_file
 from manifest import AndroidManifest
 from module.test_module import TestModule
 from gradle import Gradle
-import shutil
+
 
 BASE_DIR = '/Users/wxz/EAppOutDir'
 LOAD_BASE_URL = 'http://127.0.0.1:8080/'
@@ -31,7 +32,7 @@ def make(app_name, pkg_name, check_list):
     path = base_path + os.sep + app_name
     eapp_mkdir(path)
 
-    create_default_file(path, app_name)
+    create_default_file(path)
 
     # 构建需要的模块
     manifest = AndroidManifest(path, pkg_name)
@@ -54,7 +55,7 @@ def make(app_name, pkg_name, check_list):
 
 
 # 初始化一些文件目录
-def create_default_file(path, app_name):
+def create_default_file(path):
     dst_path = path + '/app/src/main/'
     # create res dir
     res = dst_path + 'res'

@@ -1,6 +1,6 @@
 # encoding=utf-8
 from module.base_module import BaseModule
-from static.manifest import Activity
+from project.manifest import Activity
 
 __author__ = 'wxz'
 
@@ -41,6 +41,8 @@ class TestModule(BaseModule):
 
         # strings
         self.res_strings = ['''<string name="login">登录</string>''']
+
+        self.lib_files = ['mta-sdk-1.6.2.jar', 'open_sdk_r3833_lite.jar']
 
     # 网页上的模块说明
     @classmethod

@@ -1,4 +1,4 @@
-from static.utils import write_file
+from utils import write_file
 
 __author__ = 'wxz'
 
@@ -9,7 +9,7 @@ class Styles:
         self.styles = []
 
     def add_style(self, style):
-        self.styles.append(style)
+        self.styles += style
 
     def create(self):
         content = '''<?xml version="1.0" encoding="utf-8"?>
@@ -20,4 +20,4 @@ class Styles:
         for style in self.styles:
             content += '    ' + style
         content += '''</resources>'''
-        write_file(self.path + '/app/src/main/res/values/strings.xml', content)
+        write_file(self.path + '/app/src/main/res/values/styles.xml', content)

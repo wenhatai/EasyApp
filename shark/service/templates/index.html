@@ -1,5 +1,61 @@
 {% extends "base.html" %}
 {% block content %}
+    <div id="lead" class="text-center waves-effect waves-light waves-block">
+        <h1>EasyApp</h1>
+
+        <p>Click effect inspired by Google's Material Design</p>
+
+        <p>v0.5.2</p>
+    </div>
+    <form action="{{ url_for('app_info') }}" method="post">
+        <div id="content">
+            <div class="button">
+                <h2>Application Info</h2>
+            </div>
+            <p>
+                <strong>App Name</strong>
+            </p>
+
+            <p>
+                <input type="text" name="app_name">
+            </p>
+
+            <p>
+                <strong>Package Name</strong>
+            </p>
+
+            <p>
+                <input type="text" name="pkg_name">
+            </p>
+        </div>
+
+        <div id="content">
+            <div class="button">
+                <h2>Module List</h2>
+            </div>
+
+            {% if module_list %}
+                {% for name, module in module_list.items() %}
+                    <p><input type="checkbox" name="checkbox" value={{ name }}>{{ module.descriptions() }} </p>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div id="content">
+            <div class="button">
+                <button type="submit" class="waves-effect waves-button waves-light waves-float" style="background: #01BCFF;color: #fff;">Submit</button>
+            </div>
+
+            {% if load_url %}
+                <a class="waves-effect waves-button" href={{ load_url }}>Button A</a>
+            {% endif %}
+            {% if ret %}
+                <p> {{ ret }}</p>
+            {% endif %}
+        </div>
+
+    </form>
+
     <form action="{{ url_for('app_info') }}" method="post">
         <p>应用名：<input type="text" name="app_name"></p>
 
@@ -8,14 +64,14 @@
         选择需要的组件：<br>
         {% if module_list %}
             {% for name, module in module_list.items() %}
-                <input type="checkbox" name="checkbox" value={{ name }} >{{ module.descriptions() }} <br>
+                <input type="checkbox" name="checkbox" value={{ name }}>{{ module.descriptions() }} <br>
             {% endfor %}
         {% endif %}
         <br>
         <input type="submit" name="提交">
     </form>
     {% if load_url %}
-        <a href={{ load_url}}> 下载 </a>
+        <a href={{ load_url }}> 下载 </a>
     {% endif %}
     {% if ret %}
         <p> {{ ret }}</p>

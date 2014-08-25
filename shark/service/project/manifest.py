@@ -1,5 +1,4 @@
 # encoding=utf-8
-import os
 from utils import write_file
 
 
@@ -23,13 +22,13 @@ class AndroidManifest:
         self.application = application
 
     def add_permisson(self, permisson):
-        self.permissions.append(permisson)
+        self.permissions += permisson
 
     def add_activity(self, activity):
-        self.activities.append(activity)
+        self.activities += activity
 
     def add_app_elems(self, elem):
-        self.app_elems.append(elem)
+        self.app_elems += elem
 
     def create(self):
         content = '''<?xml version="1.0" encoding="utf-8"?>\n''' \

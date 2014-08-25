@@ -1,6 +1,7 @@
 # encoding=utf-8
 import os
-from static.utils import mvfile_replacecontent
+
+from project.utils import mvfile_replacecontent, mv_file
 
 
 #as 构造各个模块的基类
@@ -24,6 +25,7 @@ class BaseModule:
         self.gradle_res_src_dirs = []
         self.res_strings = []
         self.res_styles = []
+        self.lib_files = []
 
         self.path = path + os.sep
         self.pkg_name = pkg_name
@@ -44,33 +46,23 @@ class BaseModule:
             mvfile_replacecontent(BaseModule.PRO_SRC_PATH + res_file, self.path + res_file,
                             BaseModule.PRO_PKG_NAME, self.pkg_name)
 
-        for permission in self.manifest_permissions:
-            manifest.add_permisson(permission)
+        # manifest构造
+        manifest.add_permisson(self.manifest_permissions)
+        manifest.add_activity(self.manifest_activities)
+        manifest.add_app_elems(self.manifest_app_elems)
 
-        for activity in self.manifest_activities:
-            manifest.add_activity(activity)
+        # gradle构造
+        gradle.add_dependency(self.gradle_dependencies)
+        gradle.add_java_src(self.gradle_java_src_dirs)
+        gradle.add_res_src(self.gradle_res_src_dirs)
 
-        for elem in self.manifest_app_elems:
-            manifest.add_app_elems(elem)
+        # values
+        strings.add_string(self.res_strings)
+        styles.add_style(self.res_styles)
 
-        for dependency in self.gradle_dependencies:
-            gradle.add_dependency(dependency)
-
-        for java_src in self.gradle_java_src_dirs:
-            gradle.add_java_src(java_src)
-
-        for res_src in self.gradle_res_src_dirs:
-            gradle.add_res_src(res_src)
-
-        for string in self.res_strings:
-            strings.add_string(string)
-
-        for style in self.res_styles:
-            styles.add_style(style)
-
-    # append string到strings.xml
-    def appand_string(self):
-        pass
+        for lib in self.lib_files:
+            mv_file(BaseModule.PRO_SRC_PATH + 'app/libs/' + lib,
+                    self.path + '/app/libs/' + lib)
 
     # 模块说明，用于页面上的展示说明
     @classmethod
