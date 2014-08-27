@@ -5,12 +5,12 @@
             <item>module/spann/</item>
         </package>
         <class package="ui/view/">
-            <item>SapnnedTextView</item>
+            <item>SpannedTextView.java</item>
         </class>
     </src>
     <res>
         <item>drawable/sample_earth.jpg</item>
-        <item>layout/sample_activity_spann</item>
+        <item>layout/sample_activity_spann.xml</item>
     </res>
     <libs>
 
@@ -19,15 +19,13 @@
         <permission>
             <item>android.permission.INTERNET</item>
         </permission>
-        <application>
-            <activity name=".test.SampleSpannedActivity"></activity>
-            <activity name=".ui.activity.EappWebViewActivity"></activity>
-        </application>
+        <activity name=".test.SampleSpannedActivity"></activity>
+        <activity name=".ui.activity.EappWebViewActivity"></activity>
     </manifest>
     <gradle>
-         <dependency>
+        <dependency>
 
-         </dependency>
+        </dependency>
     </gradle>
     <readme>
 

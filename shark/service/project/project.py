@@ -12,6 +12,7 @@ from manifest import AndroidManifest
 from module.test_module import TestModule
 from gradle import Gradle
 from local import FILE_SERVER_PATH
+from module.app_module import AppModule
 
 
 BASE_DIR = FILE_SERVER_PATH
@@ -52,6 +53,22 @@ def make(app_name, pkg_name, check_list):
     # 打包，返回下载url
     zip_dir(base_path, base_path + '.zip')
     shutil.rmtree(base_path)
+    return LOAD_BASE_URL + zip_file_name + '.zip'
+
+
+'''打包工程，写入文件'''
+
+
+def package(app_name, pkg_name, check_list):
+    zip_file_name = app_name + '-' + time.strftime('%Y%m%d%H%I%M%S')
+    base_path = BASE_DIR + os.sep + zip_file_name
+    path = base_path + os.sep + app_name
+    eapp_mkdir(path)
+
+    app_module = AppModule(path, pkg_name)
+    app_module.create()
+
+    # 打包，返回下载url
     return LOAD_BASE_URL + zip_file_name + '.zip'
 
 

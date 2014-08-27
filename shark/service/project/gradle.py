@@ -5,9 +5,8 @@ __author__ = 'wxz'
 
 
 class Gradle:
-    def __init__(self, path, apk_name):
+    def __init__(self, path):
         self.path = path
-        self.apk_name = apk_name
         self.dependencies = []
         self.java_src_dirs = []
         self.res_src_dirs = []
@@ -31,9 +30,6 @@ android {
     buildToolsVersion '20.0.0'
 
     defaultConfig {
-        applicationId "'''
-        content += self.apk_name
-        content += '''"
         minSdkVersion 8
         targetSdkVersion 19
         versionCode 1
@@ -74,7 +70,6 @@ dependencies {
     def create_default(self):
         mv_file(BaseModule.PRO_SRC_PATH + 'build.gradle', self.path + '/build.gradle')
         mv_file(BaseModule.PRO_SRC_PATH + 'settings.gradle', self.path + '/settings.gradle')
-        mv_file(BaseModule.PRO_SRC_PATH + 'local.properties', self.path + '/local.properties')
         mv_file(BaseModule.PRO_SRC_PATH + 'gradlew', self.path + '/gradlew')
         mv_file(BaseModule.PRO_SRC_PATH + 'gradlew.bat', self.path + '/gradlew.bat')
         mv_file(BaseModule.PRO_SRC_PATH + 'gradle.properties', self.path + '/gradle.properties')

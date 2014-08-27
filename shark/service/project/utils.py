@@ -41,7 +41,7 @@ def mv_folder(src, dst):
 ### 复制文件
 def mv_file(src_path, dst_path):
     ##如果文件不存在就不执行复制
-    if os.path.isfile(src_path):
+    if not os.path.isfile(src_path):
         return
     eapp_mkdir(os.path.dirname(dst_path))
     f = open(src_path, "r+")

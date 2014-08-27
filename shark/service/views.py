@@ -12,7 +12,7 @@ def app_info():
         app_name = request.form.get('app_name')
         pkg_name = request.form.get('pkg_name')
         check_list = request.form.getlist('checkbox')
-        load_url = project.make(app_name, pkg_name, check_list)
+        load_url = project.package(app_name, pkg_name, check_list)
         return render_template("index.html", title='Home', load_url=load_url, module_list=project.MODULE_LIST)
     else:
         return render_template("index.html", title='Home', module_list=project.MODULE_LIST)
