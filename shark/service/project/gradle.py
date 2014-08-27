@@ -1,4 +1,4 @@
-from module.app_module.base_module import BaseModule
+from module.base_module import BaseModule
 from utils import mv_file, mv_folder, write_file
 
 __author__ = 'wxz'

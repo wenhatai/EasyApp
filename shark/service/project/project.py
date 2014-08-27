@@ -4,12 +4,12 @@ import os
 import shutil
 
 import time
-from module.app_module.base_module import BaseModule
+from module.base_module import BaseModule
 from strings import Strings
 from styles import Styles
 from utils import eapp_mkdir, zip_dir, mv_file
 from manifest import AndroidManifest
-from module.app_module.test_module import TestModule
+from module.test_module import TestModule
 from gradle import Gradle
 from local import FILE_SERVER_PATH
 

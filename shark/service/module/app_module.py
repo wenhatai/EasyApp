@@ -6,7 +6,7 @@ except ImportError:
 from project.app_package import AppPackage
 from project.app_class import AppClass
 from project.gradle import Gradle
-from project.manifest import AndroidManifest
+from project.manifest import AndroidManifest,Activity
 
 
 class AppModule:
@@ -62,8 +62,12 @@ class AppModule:
                 for permission in child_mainfest:
                     self.app_manifest.add_permisson(permission.text)
             elif child_mainfest == "activity":
-                for activity in child_mainfest:
-                    self.app_manifest.add_activity(activity.attrib['name'])
+                for app_activity in child_mainfest:
+                    activity = Activity(app_activity.attrib['name'])
+                    activity.set_label(app_activity.attrib['label'])
+                    activity.set_launchmode(app_activity.attrib['launch_mode'])
+                    activity.set_intent_filter(app_activity.attrib['intent_filter'])
+                    self.app_manifest.add_activity(activity)
             else:
                 for app_elems in child_mainfest:
                     self.app_manifest.add_app_elems(app_elems.text)

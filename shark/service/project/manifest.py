@@ -24,7 +24,6 @@ class AndroidManifest:
         if not self.permissions.__contains__(permisson):
             self.permissions += permisson
 
-    '''暂时只解析name属性添加activity'''
     def add_activity(self, activity):
         if not self.activities.__contains__(activity):
             self.activities += activity
