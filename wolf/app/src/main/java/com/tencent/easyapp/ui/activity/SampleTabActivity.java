@@ -8,13 +8,13 @@ import android.widget.RadioGroup;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.tencent.easyapp.R;
-import com.tencent.easyapp.ui.common.SampleBaseActivity;
+import com.tencent.easyapp.ui.common.EappBaseActivity;
 import com.tencent.easyapp.ui.fragment.SamplePlanetFragment;
 
 /**
  * Created by parrzhang on 2014/7/23.
  */
-public class SampleTabActivity extends SampleBaseActivity {
+public class SampleTabActivity extends EappBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -14,7 +14,7 @@ import com.sina.weibo.sdk.exception.WeiboException;
 import com.tencent.easyapp.R;
 import com.tencent.easyapp.constant.EappConstant;
 import com.tencent.easyapp.helper.EappToastUtil;
-import com.tencent.easyapp.ui.common.SampleBaseActivity;
+import com.tencent.easyapp.ui.common.EappBaseActivity;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.UiError;
 
@@ -22,7 +22,7 @@ import com.tencent.tauth.UiError;
 /**
  * Created by parrzhang on 2014/7/21.
  */
-public class SampleLoginActivity extends SampleBaseActivity implements View.OnClickListener{
+public class SampleLoginActivity extends EappBaseActivity implements View.OnClickListener{
     private SsoHandler mSsoHandler;
     /** 微博 Web 授权类，提供登陆等功能  */
     private WeiboAuth mWeiboAuth;

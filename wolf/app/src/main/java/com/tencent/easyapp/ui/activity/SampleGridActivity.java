@@ -4,13 +4,13 @@ import android.os.Bundle;
 
 import com.actionbarsherlock.view.MenuItem;
 import com.tencent.easyapp.R;
-import com.tencent.easyapp.ui.common.SampleBaseActivity;
+import com.tencent.easyapp.ui.common.EappBaseActivity;
 import com.tencent.easyapp.ui.fragment.SampleGridFragment;
 
 /**
  * Created by parrzhang on 2014/7/16.
  */
-public class SampleGridActivity extends SampleBaseActivity{
+public class SampleGridActivity extends EappBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

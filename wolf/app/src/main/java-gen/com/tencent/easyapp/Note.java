@@ -1,7 +1,6 @@
 package com.tencent.easyapp;
 
-import com.tencent.easyapp.DaoSession;
-import com.tencent.easyapp.ui.common.SampleBaseActivity;
+import com.tencent.easyapp.ui.common.EappBaseActivity;
 
 import de.greenrobot.dao.DaoException;
 
@@ -109,7 +108,7 @@ public class Note {
         long __key = this.resource_id;
         if (resource__resolvedKey == null || !resource__resolvedKey.equals(__key)) {
             if (daoSession == null) {
-                daoSession = SampleBaseActivity.getDaoSession();
+                daoSession = EappBaseActivity.getDaoSession();
 //                throw new DaoException("Entity is detached from DAO context");
             }
             ResourceDao targetDao = daoSession.getResourceDao();

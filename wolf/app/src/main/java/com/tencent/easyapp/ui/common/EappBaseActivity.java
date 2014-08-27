@@ -13,7 +13,7 @@ import com.tencent.tauth.Tencent;
 /**
  * Created by parrzhang on 2014/7/16.
  */
-public class SampleBaseActivity extends SherlockFragmentActivity {
+public class EappBaseActivity extends SherlockFragmentActivity {
     private static Tencent mTencent;
     private static DaoSession mDaoSession;
 

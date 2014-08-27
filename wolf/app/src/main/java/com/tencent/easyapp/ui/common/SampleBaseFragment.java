@@ -15,9 +15,9 @@ public class SampleBaseFragment extends SherlockFragment {
     }
 
 
-    protected SampleBaseActivity getBaseActivity(){
-        if(getActivity() instanceof SampleBaseActivity){
-            return (SampleBaseActivity)getActivity();
+    protected EappBaseActivity getBaseActivity(){
+        if(getActivity() instanceof EappBaseActivity){
+            return (EappBaseActivity)getActivity();
         }
         return  null;
     }

@@ -3,37 +3,29 @@ package com.tencent.easyapp.ui.activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.makeramen.RoundedImageView;
 import com.tencent.easyapp.R;
 import com.tencent.easyapp.ui.adapter.SamplePlanetAdapter;
-import com.tencent.easyapp.ui.common.SampleBaseActivity;
-import com.tencent.easyapp.ui.common.SampleBaseFragment;
+import com.tencent.easyapp.ui.common.EappBaseActivity;
 import com.tencent.easyapp.ui.fragment.SampleGridFragment;
 import com.tencent.easyapp.ui.fragment.SamplePlanetFragment;
-
-import java.util.Random;
 
 
 /**
  * Created by parrzhang on 2014/7/23.
  */
-public class SampDrawLayoutActivity extends SampleBaseActivity implements SamplePlanetAdapter.OnItemClickListener {
+public class SampDrawLayoutActivity extends EappBaseActivity implements SamplePlanetAdapter.OnItemClickListener {
     private DrawerLayout mDrawerLayout;
     private RecyclerView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
