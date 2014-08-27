@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme"
         android:name=".EappApplication">
         <activity
-            android:name=".ui.activity.SampleLoginActivity"
+            android:name=".test.SampleListActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,6 +29,8 @@
         <activity android:name=".ui.activity.SampleGridActivity" />
         <activity android:name=".ui.activity.SampDrawLayoutActivity"/>
         <activity android:name=".ui.activity.SampleTabActivity"/>
+        <activity android:name=".test.SampleSpannedActivity"/>
+        <activity android:name=".ui.activity.EappWebViewActivity"/>
 
         <!--qq接入 start-->
         <activity

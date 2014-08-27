@@ -1,4 +1,4 @@
-package tencent.myapplication;
+package com.tencent.easyapp.test;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
