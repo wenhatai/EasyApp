@@ -1,5 +1,5 @@
-from module.base_module import BaseModule
 from utils import mv_file, mv_folder, write_file
+from local import APP_SOURCE_PATH
 
 __author__ = 'wxz'
 
@@ -68,10 +68,7 @@ dependencies {
         write_file(self.path + '/app/build.gradle', content)
 
     def create_default(self):
-        mv_file(BaseModule.PRO_SRC_PATH + 'build.gradle', self.path + '/build.gradle')
-        mv_file(BaseModule.PRO_SRC_PATH + 'settings.gradle', self.path + '/settings.gradle')
-        mv_file(BaseModule.PRO_SRC_PATH + 'gradlew', self.path + '/gradlew')
-        mv_file(BaseModule.PRO_SRC_PATH + 'gradlew.bat', self.path + '/gradlew.bat')
-        mv_file(BaseModule.PRO_SRC_PATH + 'gradle.properties', self.path + '/gradle.properties')
-        mv_file(BaseModule.PRO_SRC_PATH + 'app/proguard-rules.pro', self.path + '/app/proguard-rules.pro')
-        mv_folder(BaseModule.PRO_SRC_PATH + 'gradle', self.path + '/gradle')
+        mv_file(APP_SOURCE_PATH + 'build.gradle', self.path + '/build.gradle')
+        mv_file(APP_SOURCE_PATH + 'settings.gradle', self.path + '/settings.gradle')
+        mv_file(APP_SOURCE_PATH + 'app/proguard-rules.pro', self.path + '/app/proguard-rules.pro')
+        mv_folder(APP_SOURCE_PATH + '/gradle', self.path + '/gradle')

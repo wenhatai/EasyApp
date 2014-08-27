@@ -22,11 +22,11 @@ class AndroidManifest:
 
     def add_permisson(self, permisson):
         if not self.permissions.__contains__(permisson):
-            self.permissions += permisson
+            self.permissions.append(permisson)
 
     def add_activity(self, activity):
         if not self.activities.__contains__(activity):
-            self.activities += activity
+            self.activities.append(activity)
 
     def add_app_elems(self, elem):
         self.app_elems += elem
@@ -63,7 +63,7 @@ class AndroidManifest:
             content += '    <uses-permission android:name=\"' + permission + '\"/>\n'
 
         content += '''</manifest>'''
-        write_file(self.path + '/app/src/main/' + AndroidManifest.FILE_NAME, content)
+        write_file(self.path + AndroidManifest.FILE_NAME, content)
 
 
 #as 构造manifast里面的activity

@@ -30,7 +30,7 @@ MODULE_LIST = {
 # 创建工程
 def make(app_name, pkg_name, check_list):
     zip_file_name = app_name + '-' + time.strftime('%Y%m%d%H%I%M%S')
-    base_path = BASE_DIR + os.sep + zip_file_name
+    base_path = BASE_DIR + zip_file_name
     path = base_path + os.sep + app_name
     eapp_mkdir(path)
 
@@ -62,7 +62,7 @@ def make(app_name, pkg_name, check_list):
 def package(app_name, pkg_name, check_list):
     zip_file_name = app_name + '-' + time.strftime('%Y%m%d%H%I%M%S')
     base_path = BASE_DIR + os.sep + zip_file_name
-    path = base_path + os.sep + app_name
+    path = base_path + os.sep + app_name+os.sep
     eapp_mkdir(path)
 
     app_module = AppModule(path, pkg_name)

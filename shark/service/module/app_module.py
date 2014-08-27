@@ -26,16 +26,15 @@ class AppModule:
         for path in paths:
             self.pkg_path += path + os.sep
         self.module_xml = ["spanndata.xml"]
-        src_path = self.path + "/app/src/main/java/" + self.pkg_path
-        res_path = self.path + "/app/src/main/res/"
-        lib_path = self.path + "/app/libs/"
-        app_path = self.path + "/app/"
-        mainfest_path = self.path+"/app/src/main/"
+        src_path = self.path + "app/src/main/java/" + self.pkg_path
+        res_path = self.path + "app/src/main/res/"
+        lib_path = self.path + "app/libs/"
+        mainfest_path = self.path+"app/src/main/"
         self.app_package = AppPackage(src_path)
         self.app_class = AppClass(src_path)
         self.app_res = AppRes(res_path)
         self.app_lib = AppLibs(lib_path)
-        self.app_gradle = Gradle(app_path)
+        self.app_gradle = Gradle(self.path)
         self.app_manifest = AndroidManifest(mainfest_path,self.pkg_name)
         self.readme = ""
 
@@ -91,7 +90,7 @@ class AppModule:
 
     def parse_gradle(self, gradle):
         for child_gradle in gradle:
-            if child_gradle == "dependency":
+            if child_gradle.tag == "dependency":
                 for dependency in child_gradle:
                     self.app_gradle.add_dependency(dependency.text)
 
@@ -102,5 +101,5 @@ class AppModule:
         self.app_lib.create()
         self.app_res.create()
         self.app_class.create()
-        # self.app_gradle.create()
-        # self.app_manifest.create()
+        self.app_gradle.create()
+        self.app_manifest.create()
