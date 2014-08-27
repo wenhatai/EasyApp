@@ -11,9 +11,9 @@ from utils import eapp_mkdir, zip_dir, mv_file
 from manifest import AndroidManifest
 from module.test_module import TestModule
 from gradle import Gradle
+from constant import FILE_SERVER_PATH
 
-
-BASE_DIR = '/Users/wxz/EAppOutDir'
+BASE_DIR = FILE_SERVER_PATH
 LOAD_BASE_URL = 'http://127.0.0.1:8080/'
 
 

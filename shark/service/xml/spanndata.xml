@@ -1,0 +1,31 @@
+<module>
+    <src>
+        <package>
+            <item>module/spann/</item>
+        </package>
+        <class package="view/">
+            <item>ui/view/SapnnedTextView</item>
+        </class>
+    </src>
+    <res>
+        <item>drawable/sample_earth.jpg</item>
+        <item>layout/sample_activity_spann</item>
+    </res>
+    <libs>
+
+    </libs>
+    <manifest>
+        <permission>
+            <item>android.permission.INTERNET</item>
+        </permission>
+        <application>
+            <activity name=".test.SampleSpannedActivity"></activity>
+            <activity name=".ui.activity.EappWebViewActivity"></activity>
+        </application>
+    </manifest>
+    <gradle>
+    </gradle>
+    <readme>
+
+    </readme>
+</module>

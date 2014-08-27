@@ -2,13 +2,13 @@
 import os
 
 from project.utils import mvfile_replacecontent, mv_file
-
+from project.constant import APP_SOURCE_PATH
 
 #as 构造各个模块的基类
 #   移动文件，添加manifest属性，添加string等
 class BaseModule:
 
-    PRO_SRC_PATH = '/Users/wxz/ModleProject/wolf/'
+    PRO_SRC_PATH = APP_SOURCE_PATH
     PRO_PKG_NAME = 'com.tencent.easyapp'
     PRO_SRC_PATH_PRE = 'com/tencent/easyapp'
 

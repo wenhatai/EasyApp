@@ -78,6 +78,5 @@ dependencies {
         mv_file(BaseModule.PRO_SRC_PATH + 'gradlew', self.path + '/gradlew')
         mv_file(BaseModule.PRO_SRC_PATH + 'gradlew.bat', self.path + '/gradlew.bat')
         mv_file(BaseModule.PRO_SRC_PATH + 'gradle.properties', self.path + '/gradle.properties')
-        mv_file(BaseModule.PRO_SRC_PATH + 'app/local.properties', self.path + '/app/local.properties')
         mv_file(BaseModule.PRO_SRC_PATH + 'app/proguard-rules.pro', self.path + '/app/proguard-rules.pro')
         mv_folder(BaseModule.PRO_SRC_PATH + 'gradle', self.path + '/gradle')
