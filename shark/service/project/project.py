@@ -1,17 +1,18 @@
 # encoding=utf-8
 
 import os
-import time
 import shutil
 
-from module.base_module import BaseModule
+import time
+from module.app_module.base_module import BaseModule
 from strings import Strings
 from styles import Styles
 from utils import eapp_mkdir, zip_dir, mv_file
 from manifest import AndroidManifest
-from module.test_module import TestModule
+from module.app_module.test_module import TestModule
 from gradle import Gradle
-from constant import FILE_SERVER_PATH
+from local import FILE_SERVER_PATH
+
 
 BASE_DIR = FILE_SERVER_PATH
 LOAD_BASE_URL = 'http://127.0.0.1:8080/'

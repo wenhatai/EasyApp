@@ -1,10 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <module>
     <src>
         <package>
             <item>module/spann/</item>
         </package>
-        <class package="view/">
-            <item>ui/view/SapnnedTextView</item>
+        <class package="ui/view/">
+            <item>SapnnedTextView</item>
         </class>
     </src>
     <res>

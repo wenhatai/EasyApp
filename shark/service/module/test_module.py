@@ -1,5 +1,5 @@
 # encoding=utf-8
-from module.base_module import BaseModule
+from app_module.base_module import BaseModule
 from project.manifest import Activity
 
 __author__ = 'wxz'

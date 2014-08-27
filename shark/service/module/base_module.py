@@ -2,7 +2,7 @@
 import os
 
 from project.utils import mvfile_replacecontent, mv_file
-from project.constant import APP_SOURCE_PATH
+from project.local import APP_SOURCE_PATH
 
 #as 构造各个模块的基类
 #   移动文件，添加manifest属性，添加string等

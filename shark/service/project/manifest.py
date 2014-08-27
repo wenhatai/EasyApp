@@ -22,10 +22,12 @@ class AndroidManifest:
         self.application = application
 
     def add_permisson(self, permisson):
-        self.permissions += permisson
+        if not self.permissions.__contains__(permisson):
+            self.permissions += permisson
 
     def add_activity(self, activity):
-        self.activities += activity
+        if not self.activities.__contains__(activity):
+            self.activities += activity
 
     def add_app_elems(self, elem):
         self.app_elems += elem
