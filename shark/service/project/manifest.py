@@ -2,9 +2,8 @@
 from utils import write_file
 
 
-#as 创建AndroidManifest
+# as 创建AndroidManifest
 class AndroidManifest:
-
     FILE_NAME = 'AndroidManifest.xml'
 
     def __init__(self, path, pkg_name):
@@ -25,6 +24,7 @@ class AndroidManifest:
         if not self.permissions.__contains__(permisson):
             self.permissions += permisson
 
+    '''暂时只解析name属性添加activity'''
     def add_activity(self, activity):
         if not self.activities.__contains__(activity):
             self.activities += activity
@@ -34,15 +34,15 @@ class AndroidManifest:
 
     def create(self):
         content = '''<?xml version="1.0" encoding="utf-8"?>\n''' \
-                '''<manifest xmlns:android="http://schemas.android.com/apk/res/android"\n''' \
-                '''     xmlns:tools="http://schemas.android.com/tools"\n''' \
-                '''     package="''' + self.pkg_name + '''"\n''' \
-                '''     android:versionCode="1"\n''' \
-                '''     android:versionName="1.0">\n\n''' \
-                '''     <uses-sdk tools:node="replace" />\n''' \
-                '''     <application\n''' \
-                '''         android:icon="@drawable/ic_launcher"\n''' \
-                '''         android:label="@string/app_name"\n'''
+                  '''<manifest xmlns:android="http://schemas.android.com/apk/res/android"\n''' \
+                  '''     xmlns:tools="http://schemas.android.com/tools"\n''' \
+                  '''     package="''' + self.pkg_name + '''"\n''' \
+                                                         '''     android:versionCode="1"\n''' \
+                                                         '''     android:versionName="1.0">\n\n''' \
+                                                         '''     <uses-sdk tools:node="replace" />\n''' \
+                                                         '''     <application\n''' \
+                                                         '''         android:icon="@drawable/ic_launcher"\n''' \
+                                                         '''         android:label="@string/app_name"\n'''
 
         # 设置自定义 application
         if self.application.strip():
