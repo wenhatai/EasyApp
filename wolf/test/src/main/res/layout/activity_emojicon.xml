@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.rockerhieu.emojicon.EmojiconEditText
+        xmlns:emojicon="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/post_comment_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:hint="内容"
+        android:minHeight="30dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        emojicon:emojiconSize="18sp" />
+    <FrameLayout
+        android:id="@+id/fragmentlayout"
+        android:name="com.rockerhieu.emojicon.EmojiconLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="20dp"
+        android:background="#ffffff" >
+    </FrameLayout>
+</RelativeLayout>

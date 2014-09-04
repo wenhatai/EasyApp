@@ -1,0 +1,60 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:orientation="vertical"
+    >
+    
+     <GridView
+        android:id="@+id/child_grid"
+        android:layout_above="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="@android:color/transparent"
+        android:columnWidth="90dip"
+        android:gravity="center"
+        android:horizontalSpacing="5dip"
+        android:listSelector="@android:color/transparent"
+        android:numColumns="auto_fit"
+        android:padding="5dip"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="5dip">
+    </GridView>
+    <RelativeLayout 
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:background="#DDDDDD"
+        android:layout_alignParentBottom="true"
+        >
+
+     <Button
+         android:id="@+id/confirm"
+         android:layout_width="wrap_content"
+         android:layout_height="40dp"
+         android:layout_alignBaseline="@+id/scanner"
+         android:layout_alignBottom="@+id/scanner"
+         android:layout_alignParentRight="true"
+         android:layout_marginRight="16dp"
+         android:clickable="false"
+         android:gravity="left|center_vertical"
+         android:text="确定"
+         android:onClick="confirmClick"
+         android:textColor="#FFFFFF" />
+
+     <Button
+         android:id="@+id/scanner"
+         android:layout_width="wrap_content"
+         android:layout_height="40dp"
+         android:layout_alignParentLeft="true"
+         android:layout_centerVertical="true"
+         android:layout_marginLeft="16dp"
+         android:clickable="false"
+         android:onClick="scannerClick"
+         android:gravity="left|center_vertical"
+         android:text="浏览 "
+         android:textColor="#FFFFFF" />
+    </RelativeLayout>
+    
+</RelativeLayout>

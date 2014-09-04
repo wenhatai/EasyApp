@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+<RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="3"
+    >
+<com.tencent.tencentmap.mapsdk.map.MapView
+        android:id="@+id/mapview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"  
+       />    
+<ImageView 
+       android:layout_width="25dp"
+       android:layout_height="37dp"  
+       android:paddingBottom="12dp"
+       android:src="@drawable/location_hl"
+       android:layout_centerInParent="true"
+    />
+ <Button
+        android:id="@+id/button1"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:onClick="LocationOnclick"
+        android:background="@drawable/location_selector" />
+</RelativeLayout>
+
+<ListView 
+        android:id="@+id/poilistview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+         android:layout_weight="2"
+    ></ListView>
+
+</LinearLayout>

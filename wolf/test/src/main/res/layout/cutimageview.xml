@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.atm.photoselector.test.SquareLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/squarelayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/back_selector"
+    android:cacheColorHint="@android:color/transparent" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <ImageView
+                android:id="@+id/photo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:src="@drawable/ic_launcher" />
+
+            <ImageView
+                android:id="@+id/cancel"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/common_cancel" />
+        </RelativeLayout>
+
+</com.atm.photoselector.test.SquareLayout>

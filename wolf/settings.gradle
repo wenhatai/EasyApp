@@ -1,1 +1,1 @@
-include ':app'
+include ':app', ':CustomImageView', ':test', ':PhotoSelector', ':LocationSelector', ':SlidingLayout', ':CustomPopupWindow', ':ActionBar', ':Share', ':RichTextView', ':PhotoScanner', ':Emojicon'

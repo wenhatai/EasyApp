@@ -1,0 +1,45 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:id="@+id/main"
+	android:background="@drawable/text"
+    tools:context="com.atm.popuplistwindow.PopupListWindowActivity" >
+
+    <Button 
+        android:id="@+id/btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="popupwindow"
+        android:onClick="btnClick"
+        />
+    <com.atm.custompopupwindow.like.PopupLikeWindow
+        android:layout_marginTop="100dp"
+        android:id="@+id/like_btn"
+        android:layout_width="wrap_content"
+        android:text="点赞组件"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/like_btn"
+        android:orientation="horizontal"
+        android:id="@+id/mainview"
+        android:background="#999999"
+        android:layout_marginTop="100dp"
+        >
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn2"
+            android:text="我是按钮"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="文本框"
+            />
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+<Button
+    android:id="@+id/share_qq_friends"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="分享给QQ好友"
+    />
+<Button
+    android:layout_below="@+id/share_qq_friends"
+    android:id="@+id/share_qq_zone"
+    android:layout_marginTop="10dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="分享到QQ空间"
+    />
+</RelativeLayout>

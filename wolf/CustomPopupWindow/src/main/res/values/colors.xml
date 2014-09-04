@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="popupwindow_pressed">#e0DDDDDD</color>
+    <color name="popupwindow_unpressed">#e0FFFFFF</color>
+    <color name="popupwindow_textColor">#0080FF</color>
+</resources>
