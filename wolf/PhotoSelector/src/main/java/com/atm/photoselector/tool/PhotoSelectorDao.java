@@ -2,12 +2,15 @@ package com.atm.photoselector.tool;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.atm.photoselector.bean.SQLThumbnailBean;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.atm.photoselector.bean.SQLThumbnailBean;
+
 /**
  * 
  * created by limingzhang on 2014//8/31
@@ -15,20 +18,37 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public class PhotoSelectorDao {
 	private PhotoSqliteHelper psHelper;
-
+	private ExecutorService mThreadPool;
 	public PhotoSelectorDao(Context context) {
 		this.psHelper = new PhotoSqliteHelper(context);
 	}
-
-	public void add(SQLThumbnailBean stbBean) {
-		SQLiteDatabase sdb = psHelper.getWritableDatabase();
-		sdb.execSQL(
-				"insert into thumandsrc (thumbnailpath,srcpath,fathername,createtime) values (?,?,?,?)",
-				new Object[] { stbBean.getThumbnailPath(),
-								stbBean.getSrcPaht(), 
-								stbBean.getfatherFoldName(),
-								stbBean.getCreateTime()});
-		sdb.close();
+    public ExecutorService geThreadPool(){
+    	if (mThreadPool == null) {
+			synchronized (ExecutorService.class) {
+				if (mThreadPool == null) {
+					mThreadPool = Executors.newFixedThreadPool(1);
+				}
+			}
+		}
+		return mThreadPool;	
+    }
+	public void add(final SQLThumbnailBean stbBean) {
+		geThreadPool().execute(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				SQLiteDatabase sdb = psHelper.getWritableDatabase();
+				sdb.execSQL(
+						"insert into thumandsrc (thumbnailpath,srcpath,fathername,createtime) values (?,?,?,?)",
+						new Object[] { stbBean.getThumbnailPath(),
+										stbBean.getSrcPaht(), 
+										stbBean.getfatherFoldName(),
+										stbBean.getCreateTime()});
+				sdb.close();
+			}
+		});
+		
 	}
 
 	public void addAll(List<SQLThumbnailBean> stbList) {

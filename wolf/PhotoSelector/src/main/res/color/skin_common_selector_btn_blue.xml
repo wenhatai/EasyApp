@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/skin_common_btn_blue_normal_text" android:state_pressed="false" />
+    <item android:color="@color/skin_common_btn_blue_pressed_text" android:state_pressed="true" />
+    <item android:color="@color/skin_common_btn_disable_text" android:state_enabled="false" />
+</selector>

@@ -4,18 +4,22 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-import com.atm.photoselector.R;
-import com.atm.photoselector.tool.ImageLoader;
-import com.atm.photoselector.tool.ImageLoader.onImageLoaderListener;
+import android.app.Activity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
+
+import com.atm.photoselector.R;
+import com.atm.photoselector.tool.DensityUtil;
+import com.atm.photoselector.tool.ImageLoader;
 
 /**
  * 
@@ -30,6 +34,8 @@ public class PhotoGridViewAdapter extends BaseAdapter {
 	protected LayoutInflater mInflater;
 	private List<String> mSelectedImageList;
    private  Map<String,String> thumbAndSrcMapping;
+   private Context context;
+   int imageDp;
 	public PhotoGridViewAdapter(Context context, List<String> list,
 			List<String> mSelectedImageList, GridView mGridView,Map<String,String> thumbAndSrcMapping,
 			boolean isFirstLoaded) {
@@ -37,8 +43,12 @@ public class PhotoGridViewAdapter extends BaseAdapter {
 		this.mGridView = mGridView;
 		this.mSelectedImageList = mSelectedImageList;
 		mInflater = LayoutInflater.from(context);
+		this.context = context;
 		this.mImageLoader = ImageLoader.getInstance(context);
 		this.thumbAndSrcMapping = thumbAndSrcMapping;
+	int	screenWidth = ((Activity)context).getWindowManager()
+                .getDefaultDisplay().getWidth();
+	imageDp = (screenWidth - DensityUtil.dip2px(context, 12.0f) ) /3;
 	}
 
 	@Override
@@ -63,7 +73,8 @@ public class PhotoGridViewAdapter extends BaseAdapter {
 		final ViewHolder viewHolder;
 		final String path = list.get(position);
 		if (convertView == null) {
-			convertView = mInflater.inflate(R.layout.griditem_show, null);
+			convertView = (FrameLayout)mInflater.inflate(R.layout.griditem_show, null);
+			convertView.setLayoutParams(new GridView.LayoutParams(imageDp, imageDp));
 			viewHolder = new ViewHolder();
 			viewHolder.mImageView = (ImageView) convertView
 					.findViewById(R.id.child_image);
@@ -71,7 +82,6 @@ public class PhotoGridViewAdapter extends BaseAdapter {
 					.findViewById(R.id.select_image);
 			// 用来监听ImageView的宽和高
 			convertView.setTag(viewHolder);
-
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
@@ -96,7 +106,7 @@ public class PhotoGridViewAdapter extends BaseAdapter {
 			if (!"takephoto".equals(path)) {
 				viewHolder.mImageView
 						.setImageResource(R.drawable.photoselectorlib_pictures_no);
-				mImageLoader.loadNativeImage(path, new onImageLoaderListener() {
+				mImageLoader.loadNativeImage(path, new ImageLoader.onImageLoaderListener() {
 					@SuppressLint("NewApi")
 					@Override
 					public void onImageLoader(Bitmap bitmap, String url) {

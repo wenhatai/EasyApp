@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<shape
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <corners android:radius="@dimen/skin_common_btn_small_corner"/>
+
+    <solid android:color="@color/skin_common_btn_blue_pressed_fill" />
+
+    <stroke android:color="@color/skin_common_btn_blue_stroke" android:width="@dimen/skin_common_btn_small_stroke" />
+</shape>

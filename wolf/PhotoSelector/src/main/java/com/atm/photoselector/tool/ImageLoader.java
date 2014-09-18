@@ -9,16 +9,17 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.atm.photoselector.bean.SQLThumbnailBean;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.media.ThumbnailUtils;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.util.LruCache;
+
+import com.atm.photoselector.bean.SQLThumbnailBean;
 
 /**
  * 
@@ -160,6 +161,8 @@ public class ImageLoader {
      * 把原图转为缩略图。并保存到数据库和SD卡。 
      */
 	private Bitmap changeSrcToThumbnail(final String path) {
+		Bitmap bitmap = null;
+		Bitmap tbitmap = null;
 		BitmapFactory.Options opt = new BitmapFactory.Options();
 		opt.inSampleSize = 1;
 		opt.inJustDecodeBounds = true;
@@ -167,32 +170,50 @@ public class ImageLoader {
 		int bitmapSize = opt.outHeight * opt.outWidth * 4;
 		opt.inSampleSize = bitmapSize / (1000 * 2000);
 		opt.inJustDecodeBounds = false;
-		bitmap = BitmapFactory.decodeFile(path, opt);
+		//opt.inMutable =true;
+	    bitmap = BitmapFactory.decodeFile(path, opt);
 		if (bitmap == null) {
 			return null;
 		}
 		int index = bitmap.getWidth() < bitmap.getHeight() ? bitmap.getWidth()
 				: bitmap.getHeight();
-		matrix.setScale(1, 1);
-
-		Bitmap bitmap2 = Bitmap.createBitmap(bitmap, 0, 0, index, index,
+		tbitmap = ThumbnailUtils
+				.extractThumbnail(
+						bitmap,
+						200,
+						200,
+						ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
+		//matrix.setScale(1, 1);
+		//If the source bitmap is immutable and the requested subset is the same as the source bitmap itself,
+		//then the source bitmap is returned and no new bitmap is created.
+		/*Bitmap tbitmap = Bitmap.createBitmap(bitmap, 0, 0, index, index,
 				matrix, false);
+		System.out.println(bitmap.isMutable());
+		if(!bitmap.isMutable()&&(bitmap.getWidth()==bitmap.getHeight())){
+			System.out.println("我没有被回收");
+		}else{
+			System.out.println("我被回收了");
+			bitmap.recycle();
+			bitmap= null;
+		}*/
+		
 		File f = new File(path);
 		File thumbf = new File(father + File.separator + "Thumbnail"
 				+ f.getName());
 		if (!thumbf.exists()) {
-			saveThumbnailFile(bitmap2, "Thumbnail" + f.getName());
+			saveThumbnailFile(tbitmap, "Thumbnail" + f.getName());
 			SQLThumbnailBean stbBean = new SQLThumbnailBean();
 			stbBean.setfatherFoldName(f.getParentFile().getName());
 			stbBean.setThumbnailPath(father + File.separator + "Thumbnail"
 					+ f.getName());
 			stbBean.setSrcPaht(path);
 			stbBean.setCreateTime(f.lastModified());
-			if (!isThreadShut) {
+			photoSelectorDao.add(stbBean);
+/*			if (!isThreadShut) {
 				prepareInsertList.add(stbBean);
-			}
+			}*/
 		}
-		return bitmap2;
+		return tbitmap;
 
 	}
     /**

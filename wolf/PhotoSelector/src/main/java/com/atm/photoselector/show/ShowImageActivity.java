@@ -11,13 +11,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import com.atm.photoscanner.GalleryActivity;
-import com.atm.photoselector.R;
-import com.atm.photoselector.bean.ImageBean;
-import com.atm.photoselector.bean.SQLThumbnailBean;
-import com.atm.photoselector.tool.ImageLoader;
-import com.atm.photoselector.tool.PhotoSelectorDao;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
@@ -32,12 +25,20 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.atm.photoscanner.GalleryActivity;
+import com.atm.photoselector.R;
+import com.atm.photoselector.bean.ImageBean;
+import com.atm.photoselector.bean.SQLThumbnailBean;
+import com.atm.photoselector.tool.ImageLoader;
+import com.atm.photoselector.tool.PhotoSelectorDao;
 
 /**
  * 
@@ -102,8 +103,9 @@ public class ShowImageActivity extends Activity {
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_gridimage);
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.activity_gridimage);
 		myGridView = (GridView) findViewById(R.id.child_grid);
 		scanBtn = (Button) findViewById(R.id.scanner);
 		confirmBtn = (Button) findViewById(R.id.confirm);
@@ -151,7 +153,7 @@ public class ShowImageActivity extends Activity {
 							.contains(changeThumbnailToSrc(nowShow
 									.get(position)))) {
 						if (mSelectedImageList.size() < selectNum) {
-							mImageView.setAlpha(100);
+							mImageView.setAlpha(127);
 							mselectImage.setVisibility(View.VISIBLE);
 							mSelectedImageList.add(changeThumbnailToSrc(nowShow
 									.get(position)));
@@ -225,19 +227,15 @@ public class ShowImageActivity extends Activity {
 
 	private void changeBtnState() {
 		if (mSelectedImageList.size() > 0) {
-			confirmBtn.setClickable(true);
+			//有选中的图片
+			confirmBtn.setEnabled(true);
+			scanBtn.setEnabled(true);
 			confirmBtn.setText("确定" + "(" + mSelectedImageList.size() + ")");
-			confirmBtn.setTextColor(Color.BLUE);
-			scanBtn.setClickable(true);
-			scanBtn.setText("浏览");
-			scanBtn.setTextColor(Color.BLUE);
 		} else {
-			confirmBtn.setClickable(false);
-			confirmBtn.setTextColor(Color.WHITE);
+			//未选中
 			confirmBtn.setText("确定");
-			scanBtn.setText("浏览");
-			scanBtn.setTextColor(Color.WHITE);
-			scanBtn.setClickable(false);
+			confirmBtn.setEnabled(false);
+			scanBtn.setEnabled(false);
 		}
 	}
 
@@ -264,6 +262,7 @@ public class ShowImageActivity extends Activity {
 	public void scannerClick(View view) {
 		Intent intent = new Intent(ShowImageActivity.this,
 				GalleryActivity.class);
+
 		intent.putExtra(GalleryActivity.IndexExtra, 0);
 		intent.putStringArrayListExtra(GalleryActivity.GalleyDataExtra,
 				mSelectedImageList);

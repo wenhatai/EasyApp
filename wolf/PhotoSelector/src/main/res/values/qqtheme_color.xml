@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 按钮disable色值 -->
+    <color name="skin_common_btn_disable_text">#cccccc</color><!--disable文本色 -->
+    <color name="skin_common_btn_disable_fill">#e9ebec</color><!--disable填充色 -->
+    <!-- 白色按钮色值 -->
+    <color name="skin_common_btn_white_normal_text">#00a5e0</color><!--normal文本色 -->
+    <color name="skin_common_btn_white_normal_fill_up">#ffffff</color><!--填充上渐变色 -->
+    <color name="skin_common_btn_white_normal_fill_down">#fafafa</color><!--填充下渐变色 -->
+    <color name="skin_common_btn_white_pressed_text">#7f00a5e0</color><!--pressed文本色 -->
+    <color name="skin_common_btn_white_pressed_fill">#f2f2f2</color><!--pressed填充色 -->
+    <color name="skin_common_btn_white_stroke">#cacccd</color><!--按钮描边色值 -->
+
+    <!-- 蓝色按钮色值 -->
+    <color name="skin_common_btn_blue_normal_text">#ffffff</color><!--normal文本色 -->
+    <color name="skin_common_btn_blue_normal_fill_up">#1fbaf3</color><!--填充上渐变色 -->
+    <color name="skin_common_btn_blue_normal_fill_down">#18b4ed</color><!--填充下渐变色 -->
+    <color name="skin_common_btn_blue_pressed_text">#7fffffff</color><!--pressed文本色 -->
+    <color name="skin_common_btn_blue_pressed_fill">#1ca7da</color><!--pressed填充色 -->
+    <color name="skin_common_btn_blue_stroke">#0baae4</color><!--按钮描边色值 -->
+
+
+</resources>

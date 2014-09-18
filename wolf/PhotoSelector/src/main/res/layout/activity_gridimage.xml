@@ -1,60 +1,86 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" 
-    android:orientation="vertical"
-    >
-    
-     <GridView
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <RelativeLayout
+        android:id="@+id/photoheader"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#18B4ED"
+        >
+        <ImageView
+            android:layout_height="25dp"
+            android:layout_width="wrap_content"
+            android:id="@+id/backicon"
+            android:src="@drawable/common_back_icon"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            />
+        <TextView
+            android:layout_height="25dp"
+            android:layout_width="wrap_content"
+            android:id="@+id/back"
+            android:layout_toRightOf="@+id/backicon"
+            android:text="返回"
+            android:textColor="#FFFFFF"
+            android:textSize="17dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="4dp"
+            />
+        <TextView
+            android:id="@+id/headcenter"
+            android:layout_height="25dp"
+            android:layout_width="wrap_content"
+            android:text="最近图片"
+            android:textColor="#FFFFFF"
+            android:textSize="17dp"
+            android:layout_centerInParent="true"
+
+            />
+    </RelativeLayout>
+    <GridView
         android:id="@+id/child_grid"
-        android:layout_above="@+id/bottom"
+        android:layout_below="@+id/photoheader"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/bottom"
         android:cacheColorHint="@android:color/transparent"
         android:columnWidth="90dip"
         android:gravity="center"
-        android:horizontalSpacing="5dip"
+        android:horizontalSpacing="3dp"
         android:listSelector="@android:color/transparent"
-        android:numColumns="auto_fit"
-        android:padding="5dip"
+        android:numColumns="3"
+        android:padding="3dp"
         android:stretchMode="columnWidth"
-        android:verticalSpacing="5dip">
+        android:verticalSpacing="3dp" >
+
     </GridView>
-    <RelativeLayout 
+
+    <RelativeLayout
         android:id="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_gravity="bottom"
-        android:background="#DDDDDD"
         android:layout_alignParentBottom="true"
-        >
+        android:layout_gravity="bottom"
+        android:background="#DDDDDD" >
 
-     <Button
-         android:id="@+id/confirm"
-         android:layout_width="wrap_content"
-         android:layout_height="40dp"
-         android:layout_alignBaseline="@+id/scanner"
-         android:layout_alignBottom="@+id/scanner"
-         android:layout_alignParentRight="true"
-         android:layout_marginRight="16dp"
-         android:clickable="false"
-         android:gravity="left|center_vertical"
-         android:text="确定"
-         android:onClick="confirmClick"
-         android:textColor="#FFFFFF" />
+        <Button
+            android:id="@+id/confirm"
+            style="@style/QQThemeButtonSmallBlue"
+            android:layout_width="85dp"
+            android:layout_alignParentRight="true"
+            android:enabled="false"
+            android:onClick="confirmClick"
+            android:text="确定" />
 
-     <Button
-         android:id="@+id/scanner"
-         android:layout_width="wrap_content"
-         android:layout_height="40dp"
-         android:layout_alignParentLeft="true"
-         android:layout_centerVertical="true"
-         android:layout_marginLeft="16dp"
-         android:clickable="false"
-         android:onClick="scannerClick"
-         android:gravity="left|center_vertical"
-         android:text="浏览 "
-         android:textColor="#FFFFFF" />
+        <Button
+            android:id="@+id/scanner"
+            style="@style/QQThemeButtonSmallBlue"
+            android:layout_alignParentLeft="true"
+            android:enabled="false"
+            android:onClick="scannerClick"
+            android:text="浏览" />
     </RelativeLayout>
-    
+
 </RelativeLayout>
