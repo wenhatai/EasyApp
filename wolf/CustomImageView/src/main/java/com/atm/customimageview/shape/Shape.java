@@ -6,13 +6,6 @@ import android.graphics.Bitmap;
  *
  */
 public  abstract class Shape {
-    /**
-     * 根据传人的宽高来生成图片。
-     * @param first
-     * @param second
-     */
-	 
-     public abstract Bitmap getBitmap(int first,int second);
      /**
       * 根据传人的图片来生成图片。
       * @param bitmap

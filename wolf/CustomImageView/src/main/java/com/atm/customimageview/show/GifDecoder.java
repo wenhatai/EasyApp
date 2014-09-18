@@ -7,8 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 
 /**
- * @author liao
- *  modifid by limingzhang on 2014/8/5
+ * @author liao modifid by limingzhang on 2014/8/5
  */
 public class GifDecoder extends Thread {
 
@@ -640,7 +639,9 @@ public class GifDecoder extends Thread {
 		readLSD();
 		if (gctFlag && !err()) {
 			gct = readColorTable(gctSize);
-			bgColor = gct[bgIndex];
+			if (gct != null) {
+				bgColor = gct[bgIndex];
+			}
 		}
 	}
 

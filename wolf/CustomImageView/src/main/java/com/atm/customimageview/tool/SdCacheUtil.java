@@ -10,26 +10,20 @@ import java.io.OutputStream;
 import java.text.DecimalFormat;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import android.annotation.SuppressLint;
+
 import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
-@SuppressLint("NewApi")
 public class SdCacheUtil {
 	private static SdCacheUtil sdCacheUtil;
 	private ExecutorService mImageThreadPool = null;
-	private String rootPath /*
-							 * = Environment.getExternalStorageDirectory()
-							 * .toString();
-							 */;
-
-	private String FileDictionary = File.separator + "QQtribleTemp";
-
-	private String MobileRoot = null;
+	private String rootPath ;
+	private String fileDictionary = File.separator + "QQtribleTemp";
+	private String mobileRoot = null;
 
 	private SdCacheUtil(Context context) {
-		this.MobileRoot = context.getCacheDir().getPath();
+		this.mobileRoot = context.getCacheDir().getPath();
 		if (context.getExternalCacheDir() != null) {
 			rootPath = context.getExternalCacheDir().getPath();
 		}
@@ -39,7 +33,6 @@ public class SdCacheUtil {
 		if (mImageThreadPool == null) {
 			synchronized (ExecutorService.class) {
 				if (mImageThreadPool == null) {
-					// 为了读取图片更加的流畅，我们用了3个线程来读取图片
 					mImageThreadPool = Executors.newFixedThreadPool(3);
 				}
 			}
@@ -56,17 +49,21 @@ public class SdCacheUtil {
 
 	private String getStoragePath() {
 		return Environment.getExternalStorageState().equals(
-				Environment.MEDIA_MOUNTED) ? rootPath + FileDictionary
-				: MobileRoot + FileDictionary;
+				Environment.MEDIA_MOUNTED) ? rootPath + fileDictionary
+				: mobileRoot + fileDictionary;
 	}
-
+   /**
+    * 将字符数组保存到SD卡
+    * @param fileName 文件名
+    * @param b        内容
+    * @throws java.io.IOException
+    */
 	public void savaByte(final String fileName, final byte[] b)
 			throws IOException {
 		getThreadPool().execute(new Runnable() {
 
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				if (b == null) {
 					return;
 				}
@@ -80,7 +77,7 @@ public class SdCacheUtil {
 				}
 
 				//添加判空处理  freedeng
-				if (secondfolderFile.list() != null && secondfolderFile.list().length > 200) {
+				if (secondfolderFile.list() != null && secondfolderFile.list().length > 1000) {
 					delete(folderFile);
 				}
 
@@ -92,21 +89,23 @@ public class SdCacheUtil {
 					os.flush();
 					os.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		});
 
 	}
-
-	public void getByteFromSDCard(final String fileName, final CallBack callBack) {
+    /**
+     * 通过文件名获取字符数组，并通过回调返回。
+     * @param fileName
+     * @param imageCallBack
+     */
+	public void getByteFromSDCard(final String fileName, final ImageCallBack imageCallBack) {
 		getThreadPool().execute(new Runnable() {
 
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
-				File f = new File(getStoragePath() + File.separator
+				File f = new File(getStoragePath()
 						+ File.separator + fileName);
 				InputStream is = null;
 				byte[] bt = null;
@@ -116,11 +115,16 @@ public class SdCacheUtil {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				callBack.get(bt);
+				imageCallBack.get(bt,fileName);
 			}
 		});
 	}
-
+   /**
+    * 通过输入流来获得字节数组
+    * @param is
+    * @return
+    * @throws java.io.IOException
+    */
 	public byte[] getBytes(InputStream is) throws IOException {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		byte[] b = new byte[1024];
@@ -132,17 +136,27 @@ public class SdCacheUtil {
 		byte[] bytes = baos.toByteArray();
 		return bytes;
 	}
-
+    /**
+     * 获取文件大小
+     * @param fileName
+     * @return
+     */
 	public long getFileSize(String fileName) {
-		return new File(getStoragePath() + File.separator + File.separator
+		return new File(getStoragePath() + File.separator 
 				+ fileName).length();
 	}
-
+    /**
+     * 判断文件是否存在
+     * @param fileName
+     * @return
+     */
 	public boolean isFileExists(String fileName) {
-		return new File(getStoragePath() + File.separator + File.separator
+		return new File(getStoragePath() + File.separator
 				+ fileName).exists();
 	}
-
+    /**
+     * 删除缓存文件夹
+     */
 	public void deleteFile() {
 		File dirFile = new File(getStoragePath());
 		if (!dirFile.exists()) {
@@ -156,17 +170,11 @@ public class SdCacheUtil {
 		}
 		dirFile.delete();
 	}
-
-	public interface CallBack {
-		public void get(byte[] bt);
-
-		public void getSize(String size);
-
-		public void clear(String status);
-	}
-
+	/**
+	 * 删除文件
+	 * @param file
+	 */
 	private void delete(File file) {
-
 		if (file.isFile()) {
 			file.delete();
 			return;
@@ -187,15 +195,13 @@ public class SdCacheUtil {
 	/**
 	 * 清除缓存
 	 */
-	public void clearSDCache(final CallBack callBack) {
+	public void clearSDCache(final ClearCacheCallBack clearCacheCallBack) {
 		getThreadPool().execute(new Runnable() {
-
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				File file = new File(getStoragePath());
 				delete(file);
-				callBack.clear("cleared");
+				clearCacheCallBack.clear("cleared");
 			}
 		});
 
@@ -203,22 +209,19 @@ public class SdCacheUtil {
 
 	/**
 	 * 获取缓存大小
-	 * 
-	 * @return 缓存
 	 */
-	public void getImageCacheSize(final CallBack callBack) {
+	public void getImageCacheSize(final GetCacheSizeCallBack getCacheSizeCallBack) {
 		getThreadPool().execute(new Runnable() {
-
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
-				File file = new File(getStoragePath());
-				callBack.getSize(getAutoFileOrFilesSize(getStoragePath()));
+				getCacheSizeCallBack.getSize(getAutoFileOrFilesSize(getStoragePath()));
 			}
 		});
 
 	}
-
+    /**
+     * 获取文件总大小
+     */
 	public String getAutoFileOrFilesSize(String filePath) {
 		File file = new File(filePath);
 		long blockSize = 0;
@@ -234,7 +237,12 @@ public class SdCacheUtil {
 		}
 		return FormetFileSize(blockSize);
 	}
-
+   /**
+    * 获取文件夹大小
+    * @param f
+    * @return
+    * @throws Exception
+    */
 	private long getFileSizes(File f) throws Exception {
 		long size = 0;
 		File flist[] = f.listFiles();
@@ -247,7 +255,12 @@ public class SdCacheUtil {
 		}
 		return size;
 	}
-
+    /**
+     * 获取文件大小
+     * @param file
+     * @return
+     * @throws Exception
+     */
 	@SuppressWarnings("resource")
 	private long getFileSize(File file) throws Exception {
 		long size = 0;
@@ -261,7 +274,11 @@ public class SdCacheUtil {
 		}
 		return size;
 	}
-
+    /**
+     * 给文件大小添加单位
+     * @param fileS
+     * @return
+     */
 	private String FormetFileSize(long fileS) {
 		DecimalFormat df = new DecimalFormat("#.00");
 		String fileSizeString = "";
@@ -280,4 +297,18 @@ public class SdCacheUtil {
 		}
 		return fileSizeString;
 	}
+    /**
+     * 
+     * @author limingzhang
+     *
+     */
+	public interface ImageCallBack {
+		public void get(byte[] bt, String url);
+	}
+    public interface GetCacheSizeCallBack{
+    	public void getSize(String size);
+    }
+    public interface ClearCacheCallBack{
+    	public void clear(String status);
+    }
 }

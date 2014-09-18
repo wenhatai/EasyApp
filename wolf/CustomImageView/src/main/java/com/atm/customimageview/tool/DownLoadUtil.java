@@ -8,55 +8,74 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import android.content.IntentSender.SendIntentException;
+import android.os.Handler;
+import android.os.Message;
+
 /**
- *created by limingzhang on 2014/8/5
+ * created by limingzhang on 2014/8/5
  *
  */
 public class DownLoadUtil {
 	private ExecutorService mImageThreadPool = null;
 	private static DownLoadUtil downLoadUtil;
+   
 	public ExecutorService getThreadPool() {
 		if (mImageThreadPool == null) {
 			synchronized (ExecutorService.class) {
 				if (mImageThreadPool == null) {
-					// 为了下载图片更加的流畅，我们用了3个线程来下载图片
 					mImageThreadPool = Executors.newFixedThreadPool(3);
 				}
 			}
 		}
 		return mImageThreadPool;
 	}
-	public static DownLoadUtil getInstance(){
-		if(downLoadUtil==null){
+
+	public static DownLoadUtil getInstance() {
+		if (downLoadUtil == null) {
 			downLoadUtil = new DownLoadUtil();
 		}
 		return downLoadUtil;
 	}
+
 	/**
-	 * 
-	 * @param urlPath 网络图片的URL。
-	 * @param filePath 保存的sdcard的路径
-	 * @param callBack 网络请求成功之后的回调
+	 * 下载图片
+	 * @param urlPath
+	 *            网络图片的URL。
+	 * @param filePath
+	 *            保存的sdcard的路径
+	 * @param callBack
+	 *            网络请求成功之后的回调
 	 */
-	public void downloadFile(final String urlPath, final String filePath,final CallBack callBack) {
+	public void downloadFile(final String urlPath, final String filePath,
+			final CallBack callBack) {
 		getThreadPool().execute(new Runnable() {
-			
+			String url = urlPath;
+			HttpURLConnection conn = null;
+			byte[] bt = null;
+
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
-				URL imageUrl = null;
-				InputStream is = null;
-				byte[] bt = null;
 				try {
+					URL imageUrl = null;
+					InputStream is = null;
 					imageUrl = new URL(urlPath);
-
-					HttpURLConnection conn = (HttpURLConnection) imageUrl
-							.openConnection();
-					conn.setRequestMethod("GET");
-					conn.setReadTimeout(5000);
-					conn.connect();
+					if (conn == null) {
+						conn = (HttpURLConnection) imageUrl.openConnection();
+						conn.setRequestMethod("GET");
+						conn.addRequestProperty("Referer",
+								"http://xiaoqu.qq.com/mobile/index.html");
+						conn.setReadTimeout(5000);
+						conn.connect();
+					}
 					is = conn.getInputStream();
 					bt = getBytes(is);
 					if (filePath != null || "".equals(filePath)) {
@@ -71,12 +90,19 @@ public class DownLoadUtil {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				callBack.downLoadByte(bt);
+				if(bt!=null){
+				callBack.downLoadByte(bt, url);
+				}
 			}
 		});
 
 	}
-   
+   /**
+    * 通过文件输入流，获取字节数组
+    * @param is
+    * @return
+    * @throws java.io.IOException
+    */
 	private static byte[] getBytes(InputStream is) throws IOException {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		byte[] b = new byte[1024];
@@ -88,20 +114,12 @@ public class DownLoadUtil {
 		byte[] bytes = baos.toByteArray();
 		return bytes;
 	}
-
-	public static byte[] getImageFromSDCard(String filePath) {
-		File f = new File(filePath);
-		InputStream is = null;
-		byte[] bt = null;
-		try {
-			is = new FileInputStream(f);
-			bt = getBytes(is);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return bt;
-	}
-	public interface CallBack{
-		public void downLoadByte(byte[] bt);
+    /**
+     * 设置回调
+     * @author limitvic
+     *
+     */
+	public interface CallBack {
+		public void downLoadByte(byte[] bt, String url);
 	}
 }
